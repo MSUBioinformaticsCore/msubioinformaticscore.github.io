@@ -9,6 +9,5 @@ Below you’ll find a collection of resources to help you with data handling, st
 
 - [Data Handling and Storage on the HPCC](./data-handling-and-storage.md)
 - [Bulk-RNAseq Pipeline Tutorial](./bulk-rnaseq-tutorial.md)
+- [Uploading data to HPCC using Globus](./globus_documentation.md)
 - More resources coming soon...
-
-Test
