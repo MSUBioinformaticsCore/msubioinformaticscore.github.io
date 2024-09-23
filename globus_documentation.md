@@ -91,8 +91,8 @@ These step-by-step instructions are designed to help users new to Linux and High
 - **File Permissions**: Ensure you have permission to access the source files and write to the destination directory.
 - **Data Size**: Large data transfers may take time; you can close your browser, and the transfer will continue.
 - **Data Storage**:
-  - `/mnt/scratch` is a temporary storage area with large capacity but is not backed up and may be purged periodically.
-  - For long-term storage, consider using your home directory or group-specific storage on the HPCC.
+  - `/mnt/scratch` is a temporary storage area with large capacity but is purged every 45 days.
+  - For long-term storage, consider using your home directory or group-specific research storage on the HPCC.
 
 ### Getting Help
 
