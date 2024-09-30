@@ -17,7 +17,7 @@ These step-by-step instructions are designed to help users new to Linux and High
 ## Step-by-Step Guide
 
 1. **Access the MSU HPCC through OnDemand**
-   Note: If you prefer to access the HPCC via ssh connection, skip to section 4.
+   - **Note:** If you prefer to access the HPCC via ssh connection, skip to section 4.
    - Open your web browser (i.e. Chrome, Firefox, Safari, etc...).
    - Go to [https://ondemand.hpcc.msu.edu/](https://ondemand.hpcc.msu.edu/).
 
@@ -41,7 +41,7 @@ These step-by-step instructions are designed to help users new to Linux and High
    - Inform your consultant when the transfer is complete so they can close access permissions.
 
 5. **Copying Data Into the Shared Directory**
-   -Locate the path to your data:
+   - Locate the path to your data:
       - If your data is not already on the HPCC, you will need to [**upload your data**](./data-handling-and-storage.md).
          - If your files are less than 200MB, the easiest way to do this is through [OnDemand](https://ondemand.hpcc.msu.edu/).
             - Log on to OnDemand and click the **Files** drop down tab on the top of the screen, then click **Home Directory**. There will be a blue **Upload** button near the top right, click it, then add the files and folders that you want to upload to the HPCC, and click the green **Upload Files** button. The path to your data will then be **/mnt/home/yourUsername/** where yourUsername is your MSU NetID.
@@ -61,6 +61,7 @@ These step-by-step instructions are designed to help users new to Linux and High
 ### Troubleshooting
 - **Do not use the mv or cp -p commands to transfer files into the shared directory.**
    - Both mv and cp -p may preserve an undesired group ownership attribute even when transferred into a research space directory with ownership and permissions configured correctly. You should use cp (or cp -r) without the -p option.
+- **Permission denied**
    - After you run the **cp** command, if you get an error stating: **Permission denied**. Contact your bioinformaticscore consultant and ask them to open permissions for their shared directory.
 
 ### Getting Help
