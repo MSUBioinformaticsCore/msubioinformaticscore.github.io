@@ -4,15 +4,6 @@ title: "Instructions for Sharing Data With the Bioinformatics Core on the MSU HP
 date: 2024-09-25
 categories: jekyll update
 ---
-
-
-Nick will send me ICER documentation on research spaces. we will have to use some of the same information here. This document mainly using a research space .2. Should be familiar to anyone using a research space. 
-
-
-Document how the consultants should operate as well. 
-Have this done by Monday!
-
-
 # Instructions for Sharing Data With the Bioinformatics Core on the MSU HPCC
 
 These step-by-step instructions are designed to help users new to Linux and High-Performance Computing (HPC) share and transfer data with the Bioinformatics Core using the Michigan State University High-Performance Computing Center (MSU HPCC).
