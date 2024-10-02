@@ -11,7 +11,7 @@ These step-by-step instructions are designed to help users new to Linux and High
 ## Prerequisites
 
 - **MSU NetID and Password**: Ensure you have an active MSU NetID and password.
-- **HPCC Account**: You must have an account on the MSU HPCC.
+- **HPCC Account**: You must have an account on the MSU HPCC (you can make a request at: https://contact.icer.msu.edu/account).
 - **Path to Shared Directory**: You will receive this from your bioinformatics core consultant. It will look similar to "/mnt/research/bioinformaticscore/shared/panchyni/"
 
 ## Step-by-Step Guide
