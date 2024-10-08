@@ -15,7 +15,7 @@ These step-by-step instructions are designed to help Bioinformatics Core consult
     - Within the **/mnt/research/bioinformaticsCore/shared/** directory, create a directory to be shared with your client. It may be easiest to structure this by creating a directory named with your MSU NetID, then creating another directory within it with the project name. I.e. /mnt/research/bioinformaticsCore/shared/terrianl/20240930_BhattacharyaLab_snRNAseq_shared.
 
 2. **Set proper permissions for sharing**
-    - Ensure that the client will be able to copy files in and out of the shared directory by running **chmod -777 -R /path/to/shared/folder**
+    - Ensure that the client will be able to copy files in and out of the shared directory by running **chmod 777 -R /path/to/shared/folder**
         - **Replace** "/path/to/shared/folder" with the actual path.
         - **Note**: The -R flag changes permissions for the directory. Don't use -R if you want to change permissions for a single file.
 
