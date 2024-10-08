@@ -25,4 +25,4 @@ These step-by-step instructions are designed to help Bioinformatics Core consult
 
 4. **Close folder permissions**
     - Once your client notifies you that they are done copying data into or out of the shared directory, protect their data by closing the folder permissions.
-    - Run **chmod -770 -R /path/to/shared/folder**
+    - Run **chmod 770 -R /path/to/shared/folder**
