@@ -24,7 +24,7 @@ This guide provides step-by-step instructions for transferring files from MSU On
 - Open your web browser.
 - Go to [https://app.globus.org/](https://app.globus.org/).
 
-  <img src="images/step-1-globus-homepage.png.png" alt="Globus Homepage" style="max-width: 800px; width: 100%; height: auto;">
+  <img src="images/step-1-globus-homepage.png" alt="Globus Homepage" style="max-width: 800px; width: 100%; height: auto;">
 
 ### 2. Log In with Your MSU Credentials
 
