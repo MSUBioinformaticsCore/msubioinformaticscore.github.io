@@ -1,0 +1,12 @@
+/* custom.css */
+
+/* Link styles */
+a:link, a:visited {
+    color: green !important;
+    text-decoration: underline; /* Add underline if desired */
+}
+
+/* Optional: Change color on hover */
+a:hover, a:active {
+    color: darkgreen !important;
+}
