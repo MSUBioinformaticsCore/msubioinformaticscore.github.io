@@ -68,6 +68,9 @@ This workflow quantifies transcript-level RNA-Seq abundance, detects differentia
   - Enter your sample information in CSV format. Below is a template:
 
     ```csv
+    <div class="code-container">
+    <button class="copy-btn" data-clipboard-target="#rnaseq-samplesheet">Copy</button>
+    <pre><code id="rnaseq-samplesheet">
     sample,fastq_1,fastq_2,strandedness
     CONTROL_REP1,/path/to/fastq/CONTROL_REP1_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP1_R2_001.fastq.gz,auto
     CONTROL_REP2,/path/to/fastq/CONTROL_REP2_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP2_R2_001.fastq.gz,auto
