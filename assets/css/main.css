@@ -8,3 +8,22 @@ a:link, a:visited {
 a:hover, a:active {
     color: darkgreen;
 }
+
+.code-container {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background-color: #45a049;
+}
