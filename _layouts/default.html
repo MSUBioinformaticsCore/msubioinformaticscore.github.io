@@ -28,36 +28,40 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Create the Copy button for each pre > code block
-    document.querySelectorAll('pre > code').forEach(function (codeBlock) {
-      // Create the button
+    // Select all <pre> elements containing code
+    document.querySelectorAll('pre > code').forEach(function (codeBlock, index) {
+      // Create a unique ID for each code block
+      const id = `code-block-${index}`;
+      codeBlock.setAttribute('id', id);
+
+      // Create the copy button
       const button = document.createElement('button');
       button.className = 'copy-btn';
       button.type = 'button';
       button.innerText = 'Copy';
 
-      // Attach the button to the code block
+      // Attach the button to the code block's parent <pre> element
       const pre = codeBlock.parentNode;
       pre.parentNode.insertBefore(button, pre);
 
       // Initialize ClipboardJS on the button
       const clipboard = new ClipboardJS(button, {
-        target: function() {
-          return codeBlock;
+        target: function () {
+          return document.getElementById(id);
         }
       });
 
-      // Change the button text when the code is copied
-      clipboard.on('success', function(e) {
+      // Update the button text on success or error
+      clipboard.on('success', function () {
         button.innerText = 'Copied!';
-        setTimeout(function() {
+        setTimeout(function () {
           button.innerText = 'Copy';
         }, 2000);
       });
 
-      clipboard.on('error', function(e) {
+      clipboard.on('error', function () {
         button.innerText = 'Error';
-        setTimeout(function() {
+        setTimeout(function () {
           button.innerText = 'Copy';
         }, 2000);
       });
