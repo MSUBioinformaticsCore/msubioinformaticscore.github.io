@@ -27,16 +27,42 @@
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
   <script>
-    var clipboard = new ClipboardJS('.copy-btn');
+  document.addEventListener('DOMContentLoaded', function () {
+    // Create the Copy button for each pre > code block
+    document.querySelectorAll('pre > code').forEach(function (codeBlock) {
+      // Create the button
+      const button = document.createElement('button');
+      button.className = 'copy-btn';
+      button.type = 'button';
+      button.innerText = 'Copy';
 
-    clipboard.on('success', function(e) {
-        e.clearSelection();
-        alert('Code copied to clipboard!');
-    });
+      // Attach the button to the code block
+      const pre = codeBlock.parentNode;
+      pre.parentNode.insertBefore(button, pre);
 
-    clipboard.on('error', function(e) {
-        alert('Failed to copy code. Please try again.');
+      // Initialize ClipboardJS on the button
+      const clipboard = new ClipboardJS(button, {
+        target: function() {
+          return codeBlock;
+        }
+      });
+
+      // Change the button text when the code is copied
+      clipboard.on('success', function(e) {
+        button.innerText = 'Copied!';
+        setTimeout(function() {
+          button.innerText = 'Copy';
+        }, 2000);
+      });
+
+      clipboard.on('error', function(e) {
+        button.innerText = 'Error';
+        setTimeout(function() {
+          button.innerText = 'Copy';
+        }, 2000);
+      });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
