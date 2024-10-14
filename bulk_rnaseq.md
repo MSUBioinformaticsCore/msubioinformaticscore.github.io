@@ -67,20 +67,20 @@ This workflow quantifies transcript-level RNA-Seq abundance, detects differentia
   - Click the `⋮` symbol next to the file and select **"Edit"**.
   - Enter your sample information in CSV format. Below is a template:
 
-    ```csv
-    <div class="code-container">
-    <button class="copy-btn" data-clipboard-target="#rnaseq-samplesheet">Copy</button>
-    <pre><code id="rnaseq-samplesheet">
-    sample,fastq_1,fastq_2,strandedness
-    CONTROL_REP1,/path/to/fastq/CONTROL_REP1_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP1_R2_001.fastq.gz,auto
-    CONTROL_REP2,/path/to/fastq/CONTROL_REP2_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP2_R2_001.fastq.gz,auto
-    CONTROL_REP3,/path/to/fastq/CONTROL_REP3_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP3_R2_001.fastq.gz,auto
-    TREATED_REP1,/path/to/fastq/TREATED_REP1_R1_001.fastq.gz,/path/to/fastq/TREATED_REP1_R2_001.fastq.gz,auto
-    TREATED_REP2,/path/to/fastq/TREATED_REP2_R1_001.fastq.gz,/path/to/fastq/TREATED_REP2_R2_001.fastq.gz,auto
-    TREATED_REP3,/path/to/fastq/TREATED_REP3_R1_001.fastq.gz,/path/to/fastq/TREATED_REP3_R2_001.fastq.gz,auto
-    ```
+<div class="code-container">
+  <button class="copy-btn" data-clipboard-target="#rnaseq-samplesheet">Copy</button>
+  <pre><code id="rnaseq-samplesheet">
+sample,fastq_1,fastq_2,strandedness
+CONTROL_REP1,/path/to/fastq/CONTROL_REP1_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP1_R2_001.fastq.gz,auto
+CONTROL_REP2,/path/to/fastq/CONTROL_REP2_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP2_R2_001.fastq.gz,auto
+CONTROL_REP3,/path/to/fastq/CONTROL_REP3_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP3_R2_001.fastq.gz,auto
+TREATED_REP1,/path/to/fastq/TREATED_REP1_R1_001.fastq.gz,/path/to/fastq/TREATED_REP1_R2_001.fastq.gz,auto
+TREATED_REP2,/path/to/fastq/TREATED_REP2_R1_001.fastq.gz,/path/to/fastq/TREATED_REP2_R2_001.fastq.gz,auto
+TREATED_REP3,/path/to/fastq/TREATED_REP3_R1_001.fastq.gz,/path/to/fastq/TREATED_REP3_R2_001.fastq.gz,auto
+  </code></pre>
+</div>
 
-    *Note*: Replace the paths with the actual paths to your FASTQ files.
+  *Note*: Replace the paths with the actual paths to your FASTQ files.
 
 - **Save** the `samplesheet.csv` file.
 
@@ -94,11 +94,15 @@ This workflow quantifies transcript-level RNA-Seq abundance, detects differentia
   - Click the `⋮` symbol next to the file and select **"Edit"**.
   - Add the following content to use SLURM as the process executor:
 
-    ```groovy
-    process {
+    <div class="code-container">
+      <button class="copy-btn" data-clipboard-target="#rnaseq-config">Copy</button>
+  <pre><code id="rnaseq-config">
+      process {
         executor = 'slurm'
     }
-    ```
+      </code></pre>
+    </div>
+
 
 - **Save** the `nextflow.config` file.
 
@@ -112,11 +116,14 @@ This workflow quantifies transcript-level RNA-Seq abundance, detects differentia
   - Open a terminal in your `rnaseq` directory by clicking **"Open in Terminal"**.
   - Run the following commands to download the genome and GTF files (replace with your organism of interest):
 
-    ```bash
+    <div class="code-container">
+      <button class="copy-btn" data-clipboard-target="#rnaseq-wget">Copy</button>
+  <pre><code id="rnaseq-wget">
     wget https://ftp.ensembl.org/pub/release-108/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
     wget https://ftp.ensembl.org/pub/release-108/gtf/homo_sapiens/Homo_sapiens.GRCh38.108.gtf.gz
-    ```
-
+      </code></pre>
+    </div>
+ 
     *Note*: Downloading large files may take several minutes.
 
 ### 5. Write a Bash Script to Run the RNA-Seq Pipeline Using SLURM
