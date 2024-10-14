@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Transferring Files from MSU OneDrive to the MSU HPCC via Globus"
-date: 2024-09-23
+date: 2024-10-13
 categories: jekyll update
 ---
 
