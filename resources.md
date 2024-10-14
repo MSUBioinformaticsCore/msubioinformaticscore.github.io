@@ -12,5 +12,6 @@ Below you’ll find a collection of resources to help you with data handling, st
 - [Uploading data to HPCC using Globus](./globus_documentation.md)
 - [Sharing Data With the Bioinformatics Core](./sharing_data_on_hpcc_documentation.md)
 - [Transferring data from MSU OneDrive to the HPCC using Globus](./globus_onedrive.md)
+- [CUT&RUN Pipeline Tutorial](./cutamprun.md)
 - [Single-Cell RNA sequencing]
 - More resources coming soon...
