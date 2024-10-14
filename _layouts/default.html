@@ -25,5 +25,18 @@
   <div class="content">
     {{ content }}
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script>
+    var clipboard = new ClipboardJS('.copy-btn');
+
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+        alert('Code copied to clipboard!');
+    });
+
+    clipboard.on('error', function(e) {
+        alert('Failed to copy code. Please try again.');
+    });
+  </script>
 </body>
 </html>
