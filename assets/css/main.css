@@ -77,3 +77,18 @@ footer {
 .footer-content {
   font-size: 14px;
 }
+
+/* Post styles */
+.post-meta {
+  text-align: center;  /* Centers the text */
+  color: #666;         /* Light gray text */
+  margin-top: 30px;    /* Adds space above the publication details */
+  margin-bottom: 20px; /* Adds space below the publication details */
+  font-size: 14px;     /* Sets the font size */
+  font-style: italic;  /* Italicize the text */
+}
+
+.post-meta i {
+  margin-right: 5px;  /* Adds space between the icon and text */
+}
+
