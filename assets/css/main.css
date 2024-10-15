@@ -43,18 +43,18 @@ code {
   white-space: pre-wrap; /* Keep text wrapping inside the box */
 }
 
-/* Ensure the entire page is a flex container */
+/* Use Flexbox to structure the page */
 html, body {
-  min-height: 100vh; /* Make sure the body is at least the height of the viewport */
+  height: 100%; /* Ensure the body takes up at least the full height of the viewport */
   margin: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Makes the content and footer stack vertically */
 }
 
-/* The content container grows as needed to push the footer down */
+/* The content will grow to fill space and push the footer down if necessary */
 .content {
   flex: 1;
-  padding-bottom: 20px; /* Optional: Adds space between the content and footer */
+  padding-bottom: 20px; /* Optional: Add space between content and footer */
 }
 
 /* Footer styles */
@@ -64,6 +64,8 @@ footer {
   text-align: center;
   padding: 15px 0;
   width: 100%;
+  flex-shrink: 0; /* Ensures the footer doesn't shrink */
+  position: relative; /* Ensure it stays at the bottom after content */
 }
 
 .footer-content {
