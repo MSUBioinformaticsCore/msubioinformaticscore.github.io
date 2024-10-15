@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Instructions for Sharing Data With the Bioinformatics Core on the MSU HPCC"
-date: 2024-09-25
+date: 2024-10-2
+author: Nicholas Panchy
 categories: jekyll update
 ---
 # Instructions for Sharing Data With the Bioinformatics Core on the MSU HPCC
