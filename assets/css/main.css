@@ -4,6 +4,12 @@ a:link, a:visited {
     text-decoration: underline; /* Add underline if desired */
 }
 
+.content {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
 /* Optional: Change color on hover */
 a:hover, a:active {
     color: darkgreen;
