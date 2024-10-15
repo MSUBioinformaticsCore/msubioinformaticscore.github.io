@@ -2,6 +2,7 @@
 layout: post
 title: "Running Bulk RNA-Seq Analysis on MSU HPCC Using nf-core/rnaseq and SLURM"
 date: 2024-10-13
+author: "John Vusich"
 categories: jekyll update
 ---
 
