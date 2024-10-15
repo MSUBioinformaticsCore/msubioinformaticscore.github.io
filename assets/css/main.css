@@ -26,11 +26,7 @@ a:hover, a:active {
   border-radius: 3px;
 }
 
-.copy-btn:hover {
-  background-color: #45a049;
-}
-
 pre {
-  position: relative;
+  position: relative; /* Ensure the button is positioned relative to the code block */
   padding-top: 2.5em;
 }
