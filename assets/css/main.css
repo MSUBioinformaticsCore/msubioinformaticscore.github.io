@@ -4,12 +4,22 @@ a:link, a:visited {
     text-decoration: underline; /* Add underline if desired */
 }
 
+/* Use Flexbox to structure the page */
+html, body {
+  height: 100%; /* Ensure the body takes up at least the full height of the viewport */
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Makes the content and footer stack vertically */
+}
+
+/* The content will grow to fill space and push the footer down if necessary */
 .content {
   padding: 20px;
   max-width: 800px;
   margin: auto;
+  flex: 1; /* Keep this to ensure it grows to fill available space */
+  display: block; /* Ensure it's not affected by flexbox rules */
 }
-
 /* Optional: Change color on hover */
 a:hover, a:active {
     color: darkgreen;
@@ -47,20 +57,6 @@ code {
   font-family: monospace; /* Ensure monospace font for code */
   color: #333; /* Slightly darker text for better contrast */
   white-space: pre-wrap; /* Keep text wrapping inside the box */
-}
-
-/* Use Flexbox to structure the page */
-html, body {
-  height: 100%; /* Ensure the body takes up at least the full height of the viewport */
-  margin: 0;
-  display: flex;
-  flex-direction: column; /* Makes the content and footer stack vertically */
-}
-
-/* The content will grow to fill space and push the footer down if necessary */
-.content {
-  flex: 1;
-  padding-bottom: 20px; /* Optional: Add space between content and footer */
 }
 
 /* Footer styles */
