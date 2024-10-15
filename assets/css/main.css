@@ -43,31 +43,31 @@ code {
   white-space: pre-wrap; /* Keep text wrapping inside the box */
 }
 
+/* Ensure the entire page is a flex container */
+html, body {
+  height: 100%; /* Full height for the body and html elements */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* The content container grows as needed to push the footer down */
+.content {
+  flex: 1;
+  padding-bottom: 20px; /* Optional: Adds space between the content and footer */
+}
+
 /* Footer styles */
 footer {
-  background-color: #18453B; /* Assuming this is the color of your navbar (MSU dark green) */
+  background-color: #18453B; /* MSU dark green or your navbar color */
   color: white;
   text-align: center;
   padding: 15px 0;
-  position: relative;
   width: 100%;
-  bottom: 0;
+  flex-shrink: 0; /* Ensures the footer does not shrink */
 }
 
-/* Sticky footer */
-html, body {
-  height: 100%;
-  margin: 0;
+.footer-content {
+  font-size: 14px;
 }
 
-.content {
-  min-height: calc(100vh - 60px); /* Ensure the content area takes up full height, adjust 60px to match footer height */
-  padding-bottom: 60px; /* Avoid content overlap with the footer */
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px; /* Adjust height to match your footer content */
-}
