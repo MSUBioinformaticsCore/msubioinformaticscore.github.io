@@ -24,9 +24,11 @@ a:hover, a:active {
   cursor: pointer;
   font-size: 12px;
   border-radius: 3px;
+  z-index: 1;
 }
 
 pre {
-  position: relative; /* Ensure the button is positioned relative to the code block */
-  padding-top: 2.5em;
+  position: relative; /* Ensure that <pre> has relative positioning for the absolute button */
+  padding-top: 2.5em; /* Adjust padding to make room for the button */
+  overflow: auto;
 }
