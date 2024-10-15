@@ -13,16 +13,16 @@
   {% include navbar.html %}
 
   <div class="content">
-    <!-- Remove the automatically rendered title -->
+    <!-- Post content goes here -->
     {{ content }}
-  </div>
 
-  <!-- Add publication details at the bottom of the post -->
-  <div class="post-meta">
-    <p>
-      <i class="fas fa-clock"></i> {{ page.date | date: "%B %d, %Y" }} &nbsp;
-      <i class="fas fa-user"></i> {{ page.author }}
-    </p>
+    <!-- Add publication details inside the content block -->
+    <div class="post-meta">
+      <p>
+        <i class="fas fa-clock"></i> {{ page.date | date: "%B %d, %Y" }} &nbsp;
+        <i class="fas fa-user"></i> {{ page.author }}
+      </p>
+    </div>
   </div>
 
   <footer>
