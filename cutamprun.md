@@ -2,6 +2,7 @@
 layout: post
 title: "Running CUT&RUN Analysis on MSU HPCC Using nf-core/cutandrun and SLURM"
 date: 2024-10-14
+author: "John Vusich"
 categories: jekyll update
 ---
 
