@@ -28,7 +28,18 @@ a:hover, a:active {
 }
 
 pre {
-  position: relative; /* Ensure that <pre> has relative positioning for the absolute button */
-  padding-top: 2.5em; /* Adjust padding to make room for the button */
-  overflow: auto;
+  position: relative; /* Ensure positioning for the copy button */
+  background-color: #f5f5f5; /* Light gray background */
+  padding: 15px; /* Add some padding inside the code block */
+  border-radius: 5px; /* Optional: rounded corners */
+  border: 1px solid #e0e0e0; /* Subtle border */
+  overflow: auto; /* Ensure long code lines are scrollable */
+  margin-bottom: 20px; /* Add some space between code blocks and content */
 }
+
+code {
+  font-family: monospace; /* Ensure monospace font for code */
+  color: #333; /* Slightly darker text for better contrast */
+  white-space: pre-wrap; /* Keep text wrapping inside the box */
+}
+
