@@ -43,18 +43,31 @@ code {
   white-space: pre-wrap; /* Keep text wrapping inside the box */
 }
 
+/* Footer styles */
 footer {
-  background-color: #18453B; /* MSU dark green */
+  background-color: #18453B; /* Assuming this is the color of your navbar (MSU dark green) */
   color: white;
   text-align: center;
   padding: 15px 0;
   position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Sticky footer */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.content {
+  min-height: calc(100vh - 60px); /* Ensure the content area takes up full height, adjust 60px to match footer height */
+  padding-bottom: 60px; /* Avoid content overlap with the footer */
+}
+
+footer {
+  position: absolute;
   bottom: 0;
   width: 100%;
+  height: 60px; /* Adjust height to match your footer content */
 }
-
-.footer-content {
-  font-size: 14px;
-  font-weight: normal;
-}
-
