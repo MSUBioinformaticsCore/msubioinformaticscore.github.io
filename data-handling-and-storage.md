@@ -2,12 +2,15 @@
 layout: post
 title: "HPCC Data Handling Guide: Uploading, Storing, and Sharing Sequencing Data"
 date: 2024-08-03
+author: "John Vusich"
 categories: jekyll update
 ---
 
+## Getting Data on the HPCC
+
 Welcome to the HPCC data handling guide. This documentation is designed to help new users understand the procedures for uploading, storing, and sharing data within the High-Performance Computing Cluster (HPCC) environment. It covers how to bring new sequencing data into the HPCC, access existing data, and share data with collaborators or the public through NCBI and GEO.
 
-## Getting Data on the HPCC
+---
 
 ### 1. New Sequencing Data
 
