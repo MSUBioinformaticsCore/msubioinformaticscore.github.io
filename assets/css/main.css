@@ -43,3 +43,18 @@ code {
   white-space: pre-wrap; /* Keep text wrapping inside the box */
 }
 
+footer {
+  background-color: #18453B; /* MSU dark green */
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  font-size: 14px;
+  font-weight: normal;
+}
+
