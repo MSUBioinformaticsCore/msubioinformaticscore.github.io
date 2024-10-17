@@ -71,6 +71,10 @@ This guide provides step-by-step instructions for transferring files from MSU On
 
   <img src="images/onedrive-step-6-authenticate-onedrive.png" alt="Authenticate OneDrive Access" style="max-width: 800px; width: 100%; height: auto;">
 
+  <img src="images/onedrive-step-6-register.jpg" alt="Authenticate OneDrive Access" style="max-width: 800px; width: 100%; height: auto;">
+
+  <img src="images/onedrive-step-6-approve.jpg" alt="Authenticate OneDrive Access" style="max-width: 800px; width: 100%; height: auto;">
+
 ### 7. Select the Files to Transfer
 
 - Once authenticated, your OneDrive files and folders will appear in the source panel.
