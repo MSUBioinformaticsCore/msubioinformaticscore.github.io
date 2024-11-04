@@ -27,7 +27,7 @@ Ensure **Nextflow** is available in your environment:
 module load Nextflow
 ```
 
-### 2. Create a Working Directory
+### 2. Create a Directory
 Set up a dedicated directory for your data transfer tasks:
 ```bash
 mkdir ~/fetchngs_project
