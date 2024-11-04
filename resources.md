@@ -17,8 +17,9 @@ title: Resources
 - [Using nf-core Pipelines on the HPCC](./nf-core.md)
 - [Whole Genome Sequencing Pipeline Tutorial](./wgs.md)
 - [Bulk-RNAseq Pipeline Tutorial](./bulk_rnaseq.md)
-- [CUT&RUN Pipeline Tutorial](./cutamprun.md)
+- [CUT&RUN and CUT&Tag Pipeline Tutorial](./cutamprun.md)
 - [ATAC-seq Pipeline Tutorial](./atacseq.md)
 - [ChIP-seq Pipeline Tutorial](./chipseq.md)
+- [Methylation (Bisulfite-Sequencing) Pipeline Tutorial](./methylseq.md)
 - [Single-Cell RNA sequencing Tutorial](https://msubioinformaticscore.github.io/scRNAseq_training/html/bioconductor_scRNAseq_analysis.html)
 - More resources coming soon...
