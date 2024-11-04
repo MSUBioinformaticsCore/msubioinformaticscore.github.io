@@ -1,291 +1,180 @@
 ---
 layout: post
-title: "Running Bulk RNA-Seq Analysis on MSU HPCC Using nf-core/rnaseq and SLURM"
-date: 2024-10-13
+title: "Comprehensive Bulk RNA-seq Analysis Using nf-core/rnaseq and nf-core/differential-abundance on MSU HPCC"
+date: 2024-11-04
 author: "John Vusich"
 categories: jekyll update
 ---
 
-# Running Bulk RNA-Seq Analysis on MSU HPCC Using nf-core/rnaseq and SLURM
-
-This guide provides step-by-step instructions for running bulk RNA-Seq analysis on the Michigan State University High-Performance Computing Center (MSU HPCC) using the `nf-core/rnaseq` pipeline and SLURM as the job executor. It is designed for users who are new to Linux and High-Performance Computing (HPC).
-
----
-
 ## Overview
 
-This workflow quantifies transcript-level RNA-Seq abundance, detects differentially expressed genes (DEGs), and performs gene set enrichment analysis (GSEA). It uses:
+The **MSU HPCC**, managed by ICER, is a powerful environment for bioinformatics workflows. This guide explains how to run the **nf-core/rnaseq** pipeline for RNA-seq pre-processing and the **nf-core/differential-abundance** pipeline for differential expression analysis and GSEA. Users can click [here](#differential-expression-and-gsea) to skip directly to the differential abundance and GSEA steps if they already have a counts table.
 
-- **STAR**: To map FASTQ reads to the reference genome.
-- **Salmon**: For BAM-level quantification.
-- **DESeq2**: To normalize counts and detect DEGs.
+## Key Benefits
 
----
+- **Reproducibility**: Community-curated workflows ensure standardized analysis.
+- **Portability**: Run seamlessly on various infrastructures.
+- **Scalability**: Handles datasets of different sizes efficiently.
 
 ## Prerequisites
 
-- **MSU HPCC Account**: Ensure you have an active account on the MSU HPCC.
-- **Basic Command Line Knowledge**: Familiarity with Linux command-line operations.
-- **FASTQ Files**: Your RNA-Seq data files.
-- **Reference Genome and GTF Files**: Available in ICER common-data or downloadable from Ensembl.
-- **Web Browser**: Access to MSU HPCC OnDemand via Chrome, Firefox, or Safari.
-
----
-
-## Resource Requirements
-
-- **Memory**: STAR typically uses around 38GB of RAM.
-- **HPC Access**: It is recommended to run this workflow on the HPCC due to resource demands.
-
----
+- Access to MSU HPCC with a valid ICER account.
+- Basic knowledge of **Singularity** and **Nextflow**.
 
 ## Step-by-Step Guide
 
-### 1. Create a Directory for Your Analysis
+### Note on Directory Variables
 
-- **Log in to HPCC OnDemand**:
-  - Navigate to [MSU HPCC OnDemand](https://ondemand.hpcc.msu.edu/).
+- `$HOME`: User's home directory (`/mnt/home/username`).
+- `$SCRATCH`: User's scratch directory, ideal for intermediate and large data files.
 
-- **Navigate to Home Directory**:
-  - Click on **"Files"** in the navigation bar.
-  - Select **"Home Directory"**.
+### Note on Working Directory
 
-- **Create a New Directory**:
-  - Click **"New Directory"**.
-  - Name your directory (e.g., `rnaseq`).
-  - Navigate into the newly created `rnaseq` directory.
+Intermediate files are stored in a working directory specified by the `-w` flag. Keeping intermediate data separate from the final output helps organize results and save space.
 
-- **Upload Your Data**:
-  - Upload your FASTQ files into this directory.
+### 1. Pre-processing with nf-core/rnaseq
 
-### 2. Create a Samplesheet for RNA-Seq Pre-processing
+#### 1.1 Load Nextflow Module
 
-- **Create Samplesheet File**:
-  - In your `rnaseq` directory, click **"New File"**.
-  - Name the file `samplesheet.csv`.
+```bash
+module load Nextflow
+```
 
-- **Edit Samplesheet**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Enter your sample information in CSV format. Below is a template:
+#### 1.2 Create an Analysis Directory
 
-  ```csv
-  sample,fastq_1,fastq_2,strandedness
-  CONTROL_REP1,/path/to/fastq/CONTROL_REP1_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP1_R2_001.fastq.gz,auto
-  CONTROL_REP2,/path/to/fastq/CONTROL_REP2_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP2_R2_001.fastq.gz,auto
-  CONTROL_REP3,/path/to/fastq/CONTROL_REP3_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP3_R2_001.fastq.gz,auto
-  TREATED_REP1,/path/to/fastq/TREATED_REP1_R1_001.fastq.gz,/path/to/fastq/TREATED_REP1_R2_001.fastq.gz,auto
-  TREATED_REP2,/path/to/fastq/TREATED_REP2_R1_001.fastq.gz,/path/to/fastq/TREATED_REP2_R2_001.fastq.gz,auto
-  TREATED_REP3,/path/to/fastq/TREATED_REP3_R1_001.fastq.gz,/path/to/fastq/TREATED_REP3_R2_001.fastq.gz,auto
-  ```
+```bash
+mkdir $HOME/rnaseq_project
+cd $HOME/rnaseq_project
+```
 
-  *Note*: Replace the paths with the actual paths to your FASTQ files.
+- Modify `$HOME/rnaseq_project` as needed.
 
-- **Save** the `samplesheet.csv` file.
+#### 1.3 Prepare Sample Sheet for Pre-processing
 
-### 3. Create a Nextflow Configuration File
+Create a `samplesheet.csv` for **nf-core/rnaseq** pre-processing:
 
-- **Create Config File**:
-  - In your `rnaseq` directory, click **"New File"**.
-  - Name the file `nextflow.config`.
+```csv
+sample,fastq_1,fastq_2,strandness
+CONTROL_REP1,/path/to/CONTROL_REP1_R1.fastq.gz,/path/to/CONTROL_REP1_R2.fastq.gz,auto
+CONTROL_REP2,/path/to/CONTROL_REP2_R1.fastq.gz,/path/to/CONTROL_REP2_R2.fastq.gz,auto
+TREATMENT_REP1,/path/to/TREATMENT_REP1_R1.fastq.gz,/path/to/TREATMENT_REP1_R2.fastq.gz,auto
+TREATMENT_REP2,/path/to/TREATMENT_REP2_R1.fastq.gz,/path/to/TREATMENT_REP2_R2.fastq.gz,auto
+```
 
-- **Edit Config File**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Add the following content to use SLURM as the process executor:
+Ensure paths to FASTQ files are correct and `strandness` is specified appropriately.
 
-    ```groovy
-      process {
-        executor = 'slurm'
-    }
-    ```
+#### 1.4 Configure ICER Environment
 
-- **Save** the `nextflow.config` file.
+Create `icer.config`:
 
-### 4. Obtain the Reference Genome and GTF Files
+```groovy
+process {
+    executor = 'slurm'
+}
+```
 
-- **Option 1: Use ICER Common-Data**:
-  - The following organisms have updated reference genomes and GTF/GFF3 files in `common-data`: human, mouse, rat, zebrafish, and Arabidopsis.
-  - Paths to these files can be found [here](https://github.com/johnvusich/reference-genomes).
+#### 1.5 Run nf-core/rnaseq
 
-- **Option 2: Download from Ensembl**:
-  - Open a terminal in your `rnaseq` directory by clicking **"Open in Terminal"**.
-  - Run the following commands to download the genome and GTF files (replace with your organism of interest):
+##### Example SLURM Submission Script
 
-    ```bash
-    wget https://ftp.ensembl.org/pub/release-108/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
-    wget https://ftp.ensembl.org/pub/release-108/gtf/homo_sapiens/Homo_sapiens.GRCh38.108.gtf.gz
-    ```
- 
-    *Note*: Downloading large files may take several minutes.
+```bash
+#!/bin/bash
 
-### 5. Write a Bash Script to Run the RNA-Seq Pipeline Using SLURM
+#SBATCH --job-name=rnaseq_job
+#SBATCH --time=48:00:00
+#SBATCH --mem=64GB
+#SBATCH --cpus-per-task=16
 
-- **Create Bash Script**:
-  - In your `rnaseq` directory, click **"New File"**.
-  - Name the file `run_rnaseq.sb`.
+cd $HOME/rnaseq_project
+module load Nextflow/23.10.0
 
-- **Edit Bash Script**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Write the script using `#SBATCH` directives to set resources. Here's a template:
+nextflow pull nf-core/rnaseq
+nextflow run nf-core/rnaseq -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./rnaseq_results --genome GRCh38 -work-dir $SCRATCH/rnaseq_work -c ./icer.config
+```
 
-    ```bash
-    #!/bin/bash
+- Modify `--outdir` and `--genome` as needed.
 
-    #SBATCH --job-name=rnaseq_pipeline
-    #SBATCH --time=24:00:00
-    #SBATCH --mem=40GB
-    #SBATCH --cpus-per-task=8
+### 2. Differential Expression and GSEA
 
-    cd $HOME/rnaseq
-    module load Nextflow/23.10.0
+If you already have a counts table, you can begin from here.
 
-    nextflow pull nf-core/rnaseq
-    nextflow run nf-core/rnaseq -r 3.14.0 \
-        --input ./samplesheet.csv \
-        -profile singularity \
-        --outdir ./rnaseq_results \
-        --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz \
-        --gtf ./Homo_sapiens.GRCh38.108.gtf.gz \
-        -work-dir $SCRATCH/rnaseq_work \
-        -c ./nextflow.config
-    ```
+#### 2.1 Create a Differential Expression Project Directory
 
-    *Note*: Adjust resource allocations and file paths according to your data and requirements.
+```bash
+mkdir $HOME/differential_abundance_project
+cd $HOME/differential_abundance_project
+```
 
-- **Save** the `run_rnaseq.sb` file.
+- Modify the path as needed.
 
-### 6. Run the RNA-Seq Pipeline
+#### 2.2 Prepare Input Data for Differential Abundance
 
-- **Open Terminal**:
-  - In your `rnaseq` directory, click **"Open in Terminal"**.
+Create a `samplesheet.csv` for **nf-core/differential-abundance**:
 
-- **Submit the Job to SLURM**:
+```csv
+sample,condition,replicate,batch
+CONTROL_REP1,control,1,A
+CONTROL_REP2,control,2,B
+TREATMENT_REP1,treated,1,A
+TREATMENT_REP2,treated,2,B
+```
 
-  ```bash
-  sbatch run_rnaseq.sb
-  ```
-- **Check Job Status**:
+Ensure the `sample` column matches the IDs in the counts table.
 
-  ```bash
-  squeue -u $USER
-  ```
-  
-  *Note: Replace `$USER` with your username if necessary.*
+Additional input files:
 
-### 7. Create a Samplesheet for Differential Expression Analysis
+- Use the `--matrix` parameter to specify your counts table (e.g., `--matrix salmon.merged.gene_counts.tsv`).
+- For best practices, include a transcript length matrix (e.g., `--transcript_length_matrix salmon.merged.gene_lengths.tsv`).
+- Prepare a contrasts file for defining groups of samples with the `--contrasts` parameter (e.g., `--contrasts contrasts.csv`).
 
-- **Create DE Samplesheet File**:
-  - In your `rnaseq` directory, click **"New File"**.
-  - Name the file `DE_samplesheet.csv`.
-- **Edit DE Samplesheet**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Enter your sample information in CSV format. Below is a template:
-    ```csv
-    sample,fastq_1,fastq_2,condition,replicate,batch
-    CONTROL_REP1,/path/to/fastq/CONTROL_REP1_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP1_R2_001.fastq.gz,control,1,
-    CONTROL_REP2,/path/to/fastq/CONTROL_REP2_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP2_R2_001.fastq.gz,control,2,
-    CONTROL_REP3,/path/to/fastq/CONTROL_REP3_R1_001.fastq.gz,/path/to/fastq/CONTROL_REP3_R2_001.fastq.gz,control,3,
-    TREATED_REP1,/path/to/fastq/TREATED_REP1_R1_001.fastq.gz,/path/to/fastq/TREATED_REP1_R2_001.fastq.gz,treated,1,
-    TREATED_REP2,/path/to/fastq/TREATED_REP2_R1_001.fastq.gz,/path/to/fastq/TREATED_REP2_R2_001.fastq.gz,treated,2,
-    TREATED_REP3,/path/to/fastq/TREATED_REP3_R1_001.fastq.gz,/path/to/fastq/TREATED_REP3_R2_001.fastq.gz,treated,3,
-    ```
-    *Note: Ensure the condition and replicate columns accurately reflect your experimental design.*
-- **Save** the `DE_samplesheet.csv` file.
+An example contrasts file:
 
-### 8. Create a Contrasts File for Differential Expression Analysis
+```csv
+id,variable,reference,target,blocking
+condition_control_treated,condition,control,treated,
+condition_control_treated_blockrep,condition,control,treated,replicate;batch
+```
 
-- **Create Contrasts File**:
-  - In your `rnaseq` directory, click **"New File"**.
-  - Name the file `contrasts.csv`.
-- **Edit Contrasts File**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Enter your sample information in CSV format. Below is a template:
-    ```csv
-    id,variable,reference,target,blocking
-    condition_control_treated,condition,control,treated,
-    ```
-    *Note: Adjust the variables according to your experimental design.*
-- **Save** the `contrasts.csv` file.
+- Use the `--matrix` parameter to specify your counts table (e.g., `--matrix salmon.merged.gene_counts.tsv`).
+- For best practices, include a transcript length matrix (e.g., `--transcript_length_matrix salmon.merged.gene_lengths.tsv`).
+- Prepare a contrasts file for defining groups of samples with the `--contrasts` parameter (e.g., `--contrasts contrasts.csv`).
 
-### 9. Write a Bash Script to Run Differential Expression Analysis Using SLURM
+#### 2.3 Run nf-core/differential-abundance
 
-- **Create Bash Script**:
-  - In your `rnaseq` directory, click **"New File"**.
-  - Name the file `run_differential.sb`.
+##### Example SLURM Submission Script
 
-- **Edit Bash Script**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Write the script using `#SBATCH` directives to set resources. Here's a template:
+```bash
+#!/bin/bash
 
-    ```bash
-    #!/bin/bash
+#SBATCH --job-name=diff_abundance_job
+#SBATCH --time=24:00:00
+#SBATCH --mem=32GB
+#SBATCH --cpus-per-task=8
 
-    #SBATCH --job-name=differential_analysis
-    #SBATCH --time=24:00:00
-    #SBATCH --mem=24GB
-    #SBATCH --cpus-per-task=8
+cd $HOME/differential_abundance_project
+module load Nextflow/23.10.0
 
-    cd $HOME/rnaseq
-    module load Nextflow/23.10.0
+nextflow pull nf-core/differential-abundance
+nextflow run nf-core/differential-abundance -r 1.1.0 --input samplesheet.csv --matrix ./salmon.merged.gene_counts.tsv --transcript_length_matrix salmon.merged.gene_lengths.tsv -profile singularity --outdir ./diff_abundance_results -c ./icer.config
+```
 
-    nextflow pull nf-core/differentialabundance
-    nextflow run nf-core/differentialabundance -r 1.5.0 \
-      --input ./DE_samplesheet.csv \
-      --contrasts ./contrasts.csv \
-      --matrix ./rnaseq_results/star_salmon/salmon.merged.gene_counts_length_scaled.tsv \
-      --gtf ./Homo_sapiens.GRCh38.108.gtf.gz \
-      --outdir ./differential_results \
-      -profile singularity \
-      -work-dir $SCRATCH/differential_work \
-      -c ./nextflow.config
-    ```
+- Adjust `--input`, `--matrix`, and `--outdir` paths as needed.
 
-    *Note*: Adjust resource allocations and file paths according to your data and requirements.
+## Best Practices
 
-- **Save** the `run_differential.sb` file.
+- **Check Logs**: Review pipeline logs for any warnings or errors.
+- **Resource Optimization**: Tailor `#SBATCH` settings based on dataset size.
+- **Storage Management**: Ensure adequate space for intermediate and final data.
 
-### 10. Run the Differential Expression Analysis Pipeline
+## Getting Help
 
-- **Open Terminal**:
-  - In your `rnaseq` directory, click **"Open in Terminal"**.
+For assistance:
 
-- **Submit the Job to SLURM**:
+- **nf-core Community**: [nf-core website](https://nf-co.re)
+- **ICER Support**: [MSU ICER support](https://icer.msu.edu/contact)
+- **Nextflow Documentation**: [Nextflow docs](https://www.nextflow.io/docs/latest/index.html)
 
-  ```bash
-  sbatch run_differential.sb
-  ```
-- **Check Job Status**:
+## Conclusion
 
-  ```bash
-  squeue -u $USER
-  ```
-  
-  *Note: Replace `$USER` with your username if necessary.*
+Running **nf-core/rnaseq** and **nf-core/differential-abundance** on the MSU HPCC provides a streamlined and efficient path from raw data to differential expression and GSEA. This integrated guide helps maximize the HPCC’s capabilities for comprehensive bulk RNA-seq analysis.
 
----
-
-## Additional Information
-
-### Understanding Key Terms
-- **nf-core**: A community effort to collect a curated set of analysis pipelines built using Nextflow.
-- **Nextflow**: A workflow management system that enables scalable and reproducible scientific workflows.
-- **SLURM**: A workload manager used in HPC environments to schedule jobs.
-- **Singularity**: A container platform used to package applications for reproducibility.
-
-### Tips for New Users
-- **File Paths**: Ensure all file paths in your scripts and samplesheets are correct.
-- **Resource Allocation**: Adjust #SBATCH directives based on your data size and resource availability.
-- **Monitoring Jobs**: Use squeue, scontrol, and sacct to monitor and manage your jobs.
-
-### Getting Help
-- **MSU HPCC Support**:
-  - **Email**: [general@rt.hpcc.msu.edu](mailto:general@rt.hpcc.msu.edu)
-  - **Phone**: (517) 353-9309
-  - **Website**: [https://contact.icer.msu.edu/contact](https://contact.icer.msu.edu/contact)
-- **nf-core/rnaseq Documentation**:
-  - Visit the [nf-core/rnaseq GitHub page](https://github.com/nf-core) for more information.
-
----
-
-## Summary
-
-By following these steps, you should be able to run bulk RNA-Seq analysis and differential expression analysis on the MSU HPCC using nf-core pipelines and SLURM. If you encounter any issues or have questions, don't hesitate to reach out to the support resources listed above.
