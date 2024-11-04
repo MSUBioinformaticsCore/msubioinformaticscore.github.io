@@ -15,6 +15,7 @@ title: Resources
 
 ## Tutorials
 - [Using nf-core Pipelines on the HPCC](./nf-core.md)
+- [Whole Genome Sequencing Pipeline Tutorial](./wgs.md)
 - [Bulk-RNAseq Pipeline Tutorial](./bulk_rnaseq.md)
 - [CUT&RUN Pipeline Tutorial](./cutamprun.md)
 - [ATAC-seq Pipeline Tutorial](./atacseq.md)
