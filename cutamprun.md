@@ -1,198 +1,113 @@
 ---
 layout: post
-title: "Running CUT&RUN Analysis on MSU HPCC Using nf-core/cutandrun and SLURM"
-date: 2024-10-14
+title: "Running nf-core/cutandrun on MSU HPCC"
+date: 2024-11-04
 author: "John Vusich"
 categories: jekyll update
 ---
 
-# Running CUT&RUN Analysis on MSU HPCC Using nf-core/cutandrun and SLURM
+## Overview
+The **MSU HPCC**, managed by ICER, provides an optimal platform for conducting bioinformatics workflows. This guide explains how to run the **nf-core/cutandrun** pipeline for CUT&RUN and CUT&Tag analysis, ensuring reproducibility and efficiency.
 
-This tutorial provides step-by-step instructions for analyzing CUT&RUN data on the Michigan State University High-Performance Computing Center (MSU HPCC) using the `nf-core/cutandrun` pipeline and SLURM as the job executor. It is designed for users new to Linux and High-Performance Computing (HPC).
+## Key Benefits of nf-core/cutandrun
+**nf-core/cutandrun** offers:
 
----
+- **Reproducible CUT&RUN/CUT&Tag Analysis**: Comprehensive and standardized workflows.
+- **Portability**: Runs seamlessly across various computing infrastructures.
+- **Scalability**: Capable of handling small and large-scale datasets.
 
 ## Prerequisites
+- Access to MSU HPCC with a valid ICER account.
+- Basic understanding of **Singularity** and **Nextflow**.
 
-- **MSU HPCC Account**: Ensure you have an active account on the MSU HPCC.
-- **Basic Command Line Knowledge**: Familiarity with Linux command-line operations.
-- **FASTQ Files**: Your CUT&RUN data files.
-- **Reference Genome and GTF Files**: Available in ICER common-data or downloadable from Ensembl.
-- **Web Browser**: Access to MSU HPCC OnDemand via Chrome, Firefox, or Safari.
+## Step-by-Step Tutorial
 
----
+### Note on Directory Variables
+On the MSU HPCC:
+- `$HOME` refers to the user’s home directory (`/mnt/home/username`).
+- `$SCRATCH` refers to the user’s scratch directory, ideal for temporary files and large data processing.
 
-## Step-by-Step Guide
+### Note on Working Directory
+The working directory, where intermediate and temporary files are stored, can be specified using the `-w` flag when running the pipeline. This helps keep outputs and temporary data organized.
 
-### 1. Create a Directory for Analysis
+### 1. Load Nextflow Module
+Ensure **Nextflow** is loaded:
+```bash
+module load Nextflow
+```
 
-- **Log in to HPCC OnDemand**:
-  - Navigate to [MSU HPCC OnDemand](https://ondemand.hpcc.msu.edu/).
+### 2. Create an Analysis Directory
+Set up a directory for your analysis (referred to as the Analysis Directory):
+```bash
+mkdir $HOME/cutandrun_project
+cd $HOME/cutandrun_project
+```
+- Modify `$HOME/cutandrun_project` to better suit your project.
 
-- **Navigate to Home Directory**:
-  - Click on **"Files"** in the navigation bar.
-  - Select **"Home Directory"**.
+### 3. Prepare Sample Sheet
+Create a sample sheet (`samplesheet.csv`) with the following format:
+```csv
+sample,fastq_1,fastq_2,replicate,antibody
+sample1,/path/to/sample1_R1.fastq.gz,/path/to/sample1_R2.fastq.gz,1,H3K27me3
+sample2,/path/to/sample2_R1.fastq.gz,/path/to/sample2_R2.fastq.gz,1,IgG
+```
+Ensure all paths to the FASTQ files are accurate.
 
-- **Create a New Directory**:
-  - Click **"New Directory"**.
-  - Name your directory (e.g., `cutandrun`).
-  - Navigate into the newly created `cutandrun` directory.
+### 4. Configure ICER Environment
+Create an `icer.config` file for SLURM:
+```groovy
+process {
+    executor = 'slurm'
+}
+```
 
-- **Upload Your Data**:
-  - Upload your FASTQ files into this directory.
+### 5. Run nf-core/cutandrun
 
----
+### Example SLURM Job Submission Script
+Below is a shell script for submitting an **nf-core/cutandrun** job to SLURM:
 
-### 2. Create a Samplesheet for CUT&RUN Pre-processing
+```bash
+#!/bin/bash
 
-- **Create Samplesheet File**:
-  - In your `cutandrun` directory, click **"New File"**.
-  - Name the file `samplesheet.csv`.
+#SBATCH --job-name=cutandrun_job
+#SBATCH --time=48:00:00
+#SBATCH --mem=48GB
+#SBATCH --cpus-per-task=12
 
-- **Edit Samplesheet**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Enter your sample information in CSV format. Below is a template:
+cd $HOME/cutandrun_project
+module load Nextflow/23.10.0
 
-    ```csv
-    group,replicate,fastq_1,fastq_2,control
-    h3k27me3,1,h3k27me3_rep1_r1.fastq.gz,h3k27me3_rep1_r2.fastq.gz,igg_ctrl
-    h3k27me3,2,h3k27me3_rep2_r1.fastq.gz,h3k27me3_rep2_r2.fastq.gz,igg_ctrl
-    igg_ctrl,1,igg_rep1_r1.fastq.gz,igg_rep1_r2.fastq.gz,
-    igg_ctrl,2,igg_rep2_r1.fastq.gz,igg_rep2_r2.fastq.gz,
-    ```
+nextflow pull nf-core/cutandrun
+nextflow run nf-core/cutandrun -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./cutandrun_results --genome GRCh38 -work-dir $SCRATCH/cutandrun_work -c ./nextflow.config
+```
+- Modify `--outdir` and `--genome` to match your paths and reference genome.
 
-    *Note*: Replace the paths with the actual paths to your FASTQ files.
+### Note on Reference Genomes
+Common reference genomes are located in the research common-data space on the HPCC. Refer to the README file for details. For more guidance on downloading reference genomes from Ensembl, see this [GitHub repository](https://github.com/johnvusich/reference-genomes).
 
-- **Save** the `samplesheet.csv` file.
+Execute the pipeline with the following command, including the `-w` flag for a separate working directory:
 
----
+```bash
+nextflow run nf-core/cutandrun -profile singularity --input samplesheet.csv --genome GRCh38 -c icer.config -w $SCRATCH/cutandrun_project
+```
+- Modify `-w $SCRATCH/cutandrun_project` as needed.
 
-### 3. Create a Nextflow Configuration File
+### 6. Monitor and Manage the Run
+- Use `squeue` or `sacct` to track job status.
+- Check the output directory for results.
 
-- **Create Config File**:
-  - In your `cutandrun` directory, click **"New File"**.
-  - Name the file `nextflow.config`.
+## Best Practices
+- **Review Logs**: Regularly check log files for warnings or errors.
+- **Optimize Resource Usage**: Adjust `icer.config` to match your dataset requirements.
+- **Manage Storage**: Ensure sufficient storage for intermediate and final results.
 
-- **Edit Config File**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Add the following content to use SLURM as the process executor:
-
-    ```groovy
-    process {
-        executor = 'slurm'
-    }
-    ```
-
-- **Save** the `nextflow.config` file.
-
----
-
-### 4. Obtain the Reference Genome and GTF Files
-
-- **Option 1: Use ICER Common-Data**:
-  - The following organisms have updated reference genomes and GTF/GFF3 files in `common-data`: human, mouse, rat, zebrafish, and Arabidopsis.
-  - Paths to these files can be found [here](https://github.com/johnvusich/reference-genomes).
-
-- **Option 2: Download from Ensembl**:
-  - Open a terminal in your `cutandrun` directory by clicking **"Open in Terminal"**.
-  - Run the following commands to download the genome and GTF files (replace with your organism of interest):
-
-    ```bash
-    wget https://ftp.ensembl.org/pub/release-108/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
-    wget https://ftp.ensembl.org/pub/release-108/gtf/homo_sapiens/Homo_sapiens.GRCh38.108.gtf.gz
-    ```
-
-    *Note*: Downloading large files may take several minutes.
-
----
-
-### 5. Write a Bash Script to Run the CUT&RUN Pipeline Using SLURM
-
-- **Create Bash Script**:
-  - In your `cutandrun` directory, click **"New File"**.
-  - Name the file `run_cutandrun.sb`.
-
-- **Edit Bash Script**:
-  - Click the `⋮` symbol next to the file and select **"Edit"**.
-  - Write the script using `#SBATCH` directives to set resources. Here's a template:
-
-    ```bash
-    #!/bin/bash
-
-    #SBATCH --job-name=cutandrun_pipeline
-    #SBATCH --time=24:00:00
-    #SBATCH --mem=24GB
-    #SBATCH --cpus-per-task=8
-
-    cd $HOME/cutandrun
-    module load Nextflow/23.10.0
-
-    nextflow pull nf-core/cutandrun
-    nextflow run nf-core/cutandrun -r 3.2.2 \
-        --input ./samplesheet.csv \
-        -profile singularity \
-        --outdir ./cutandrun_results \
-        --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz \
-        --gtf ./Homo_sapiens.GRCh38.108.gtf.gz \
-        -work-dir $SCRATCH/cutandrun_work \
-        -c ./nextflow.config
-    ```
-
-    *Note*: Adjust resource allocations and file paths according to your data and requirements.
-
-- **Save** the `run_cutandrun.sb` file.
-
----
-
-### 6. Run the CUT&RUN Pipeline
-
-- **Open Terminal**:
-  - In your `cutandrun` directory, click **"Open in Terminal"**.
-
-- **Submit the Job to SLURM**:
-
-    ```bash
-    sbatch run_cutandrun.sb
-    ```
-
-- **Check Job Status**:
-
-    ```bash
-    squeue -u $USER
-    ```
-
-    *Note*: Replace `$USER` with your username if necessary.
-
----
-
-## Additional Information
-
-### Understanding Key Terms
-
-- **nf-core**: A community effort to collect a curated set of analysis pipelines built using Nextflow.
-- **Nextflow**: A workflow management system that enables scalable and reproducible scientific workflows.
-- **SLURM**: A workload manager used in HPC environments to schedule jobs.
-- **Singularity**: A container platform used to package applications for reproducibility.
-
-### Tips for New Users
-
-- **File Paths**: Ensure all file paths in your scripts and samplesheets are correct.
-- **Resource Allocation**: Adjust `#SBATCH` directives based on your data size and resource availability.
-- **Monitoring Jobs**: Use `squeue`, `scontrol`, and `sacct` to monitor and manage your jobs.
-
----
+## Getting Help
+If you encounter issues running **nf-core/cutandrun** on the HPCC, consider these resources:
+- **nf-core Community**: Visit the [nf-core website](https://nf-co.re) for documentation and support.
+- **ICER Support**: Contact ICER via the [MSU ICER support page](https://icer.msu.edu/contact).
+- **Slack Channel**: Join the **nf-core** Slack for real-time assistance.
+- **Nextflow Documentation**: See the [Nextflow documentation](https://www.nextflow.io/docs/latest/index.html) for further details.
 
 ## Conclusion
-By following these steps, you should be able to run CUT&RUN analysis on the MSU HPCC using the nf-core pipeline and SLURM. If you encounter any issues or have questions, don't hesitate to reach out to the support resources listed above.
+Running **nf-core/cutandrun** on the MSU HPCC is simplified using **Singularity** and **Nextflow**. This guide ensures reproducible and efficient CUT&RUN and CUT&Tag analysis, leveraging the HPCC’s computational capabilities for bioinformatics research.
 
----
-
-### Getting Help
-
-- **MSU HPCC Support**:
-  - **Email**: [general@rt.hpcc.msu.edu](mailto:general@rt.hpcc.msu.edu)
-  - **Phone**: (517) 353-9309
-  - **Website**: [https://contact.icer.msu.edu/contact](https://contact.icer.msu.edu/contact)
-
-- **nf-core/cutandrun Documentation**:
-  - Visit the [nf-core/cutandrun GitHub page](https://github.com/nf-core/cutandrun) for more information.
