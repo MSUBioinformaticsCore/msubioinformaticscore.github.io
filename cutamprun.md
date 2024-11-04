@@ -180,6 +180,13 @@ This tutorial provides step-by-step instructions for analyzing CUT&RUN data on t
 - **Resource Allocation**: Adjust `#SBATCH` directives based on your data size and resource availability.
 - **Monitoring Jobs**: Use `squeue`, `scontrol`, and `sacct` to monitor and manage your jobs.
 
+---
+
+## Conclusion
+By following these steps, you should be able to run CUT&RUN analysis on the MSU HPCC using the nf-core pipeline and SLURM. If you encounter any issues or have questions, don't hesitate to reach out to the support resources listed above.
+
+---
+
 ### Getting Help
 
 - **MSU HPCC Support**:
@@ -189,11 +196,3 @@ This tutorial provides step-by-step instructions for analyzing CUT&RUN data on t
 
 - **nf-core/cutandrun Documentation**:
   - Visit the [nf-core/cutandrun GitHub page](https://github.com/nf-core/cutandrun) for more information.
-
----
-
-## Summary
-
-By following these steps, you should be able to run CUT&RUN analysis on the MSU HPCC using the nf-core pipeline and SLURM. If you encounter any issues or have questions, don't hesitate to reach out to the support resources listed above.
-
----
