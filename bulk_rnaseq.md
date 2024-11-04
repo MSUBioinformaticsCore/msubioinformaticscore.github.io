@@ -8,7 +8,7 @@ categories: jekyll update
 
 ## Overview
 
-The **MSU HPCC**, managed by ICER, is a powerful environment for bioinformatics workflows. This guide explains how to run the **nf-core/rnaseq** pipeline for RNA-seq pre-processing and the **nf-core/differential-abundance** pipeline for differential expression analysis and GSEA. Users can click [here](#differential-expression-and-gsea) to skip directly to the differential abundance and GSEA steps if they already have a counts table.
+The **MSU HPCC**, managed by ICER, is a powerful environment for bioinformatics workflows. This guide explains how to run the **nf-core/rnaseq** pipeline for RNA-seq pre-processing and the **nf-core/differential-abundance** pipeline for differential expression analysis and GSEA. Users can click [here](https://github.com/MSUBioinformaticsCore/msubioinformaticscore.github.io/blob/main/bulk_rnaseq.md#2-differential-expression-and-gsea)) to skip directly to the differential abundance and GSEA steps if they already have a counts table.
 
 ## Key Benefits
 
