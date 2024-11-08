@@ -9,4 +9,4 @@ The MSU Bioinformatics Core provides bioinformatics analysis and support to rese
 
 Explore our resources for best practices in data handling, storage, and analysis, or get in touch with us to schedule a consultation.
 
-[Request a Consultation](https://official-msu-bioinformatics-website-link)
+[Request a Consultation](https://bioinformatics.msu.edu/Contact-Us)
