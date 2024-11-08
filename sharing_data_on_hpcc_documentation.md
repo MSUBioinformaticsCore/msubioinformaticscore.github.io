@@ -2,6 +2,7 @@
 layout: post
 title: "Instructions for Sharing Data With the Bioinformatics Core on the MSU HPCC"
 date: 2024-10-2
+updated: 2024-11-7
 author: Leah Terrian, Nicholas Panchy
 categories: jekyll update
 ---
@@ -31,10 +32,25 @@ These step-by-step instructions are designed to help users new to Linux and High
    - Click any of the listed development nodes to enter the Terminal window.
 
 4. **Copying Data Out of the Shared Directory (Folder)**
-   - In the Terminal window, navigate to the shared directory by running (type and hit the enter key on your keyboard): **cd /path/to/shared/directory**
+   - In the Terminal window, navigate to the shared directory by running (type and hit the enter key on your keyboard): 
+
+   ```bash
+   cd /path/to/shared/directory
+   ```
+
       - **Replace** "/path/to/shared/directory" with the path given to you by your consultant.
-   - You may view a list of files within the shared directory by running: **ls -lah**
-   - Copy files out of the shared directory to your HPCC account space by running: **cp file_you_want_to_copy.txt /path/to/your/HPCC/account/**
+   - You may view a list of files within the shared directory by running: 
+
+   ```bash
+   ls -lah
+   ```
+
+   - Copy files out of the shared directory to your HPCC account space by running:
+
+   ```bash
+   cp file_you_want_to_copy.txt /path/to/your/HPCC/account/
+   ```
+
       - **Important Note:** To copy directories (folders), add **-r** after **cp** in the above command.
       - **Replace** "file_you_want_to_copy.txt" with the name of the actual file or directory you want to copy.
       - **Replace** "/path/to/your/HPCC/account/" with the path where you want to copy the file or directory (i.e. /mnt/home/yourUsername/NewDirectoryName/).
@@ -49,9 +65,19 @@ These step-by-step instructions are designed to help users new to Linux and High
             - **Note:** For organization purposes, you may also make a new directory to upload the files into. Just make sure you know the path to your data on the HPCC (i.e. /mnt/home/yourUsername/DataToShare).
          - If your files are greater than 200MB, it will be best to use one of the options in [this guide](./data-handling-and-storage.md).
       - If your data is already on the HPCC, find the path to your data by using either OnDemand or the **ls -lah** command in the Terminal window.
-   - In the terminal window type and enter this command: **cd /path/to/your/data** 
+   - In the terminal window type and enter this command: 
+
+   ```bash
+   cd /path/to/your/data
+   ```
+
       - **Replace** "/path/to/your/data" with the actual path found by following the above step.
-   - Copy your data from your HPCC account space to the shared directory location by running: **cp file_you_want_to_copy.txt /path/to/shared/directory**
+   - Copy your data from your HPCC account space to the shared directory location by running:
+
+   ```bash
+   cp file_you_want_to_copy.txt /path/to/shared/directory
+   ```
+
       - **Important Note:** To copy directories (folders), add **-r** after **cp** in the above command.
       - **Replace** "file_you_want_to_copy.txt" with the name of the actual file or directory you want to copy.
       - **Replace** "/path/to/shared/directory" with the path given to you by your consultant.
