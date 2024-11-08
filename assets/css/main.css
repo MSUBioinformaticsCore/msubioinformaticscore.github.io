@@ -88,3 +88,83 @@ footer {
   margin-right: 5px;  /* Adds space between the icon and text */
 }
 
+/* Resources page styles */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.resource-item {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.resource-item a {
+  color: #F2F2F2 !important; /* Override default link color with white */
+  text-decoration: none; /*Remove underline for cleaner look */
+}
+
+.resource-item a:hover {
+  text-decoration: underline; /* Optional: Add underline on hover for clarity */
+}
+
+.resource-item:hover {
+  transform: scale(1.05);
+}
+
+/* Michigan State-inspired color backgrounds */
+.green-background {
+  background-color: #28a745; /* Green */
+}
+
+.spartan-green {
+  background-color: #18453B; /* Primary Spartan Green */
+}
+
+.dark-green {
+  background-color: #003C1C; /* Dark Green */
+}
+
+.secondary-green {
+  background-color: #114B5F; /* Secondary Darker Green */
+}
+
+.forest-green {
+  background-color: #2A6041; /* Forest Green */
+}
+
+.pine-green {
+  background-color: #1E5631; /* Pine Green */
+}
+
+.olive-green {
+  background-color: #556B2F; /* Olive Green */
+}
+
+.muted-green {
+  background-color: #A2AD00; /* Muted Green */
+}
+
+.mint-green {
+  background-color: #98C1A2; /* Mint Green */
+  color: #18453B; /* Spartan Green text for contrast */
+}
+
+.gray {
+  background-color: #5A5A5A; /* Gray */
+}
+
+.silver {
+  background-color: #A8B4A5; /* Silver */
+}
+
+.off-white {
+  background-color: #F2F2F2; /* Off-White */
+  color: #18453B; /* Spartan Green for contrast */
+}
+
