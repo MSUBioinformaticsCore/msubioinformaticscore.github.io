@@ -2,6 +2,7 @@
 layout: post
 title: "Transferring Local Files to the MSU HPCC via Globus Connect Personal"
 date: 2024-11-13
+author: "John Vusich"
 categories: jekyll update
 ---
 
