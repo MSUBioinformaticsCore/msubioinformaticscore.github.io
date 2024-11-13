@@ -39,6 +39,12 @@ title: Resources
   </div>
 </div>
 
+<div class="resource-item silver">
+    <a href="./globus_local">
+      <p>Transferring Local Files to the MSU HPCC using Globus</p>
+    </a>
+  </div>
+
   <!-- Tutorials Section -->
 ## <i class="fa fa-project-diagram"></i> Tutorials
 <div class="resource-grid">
