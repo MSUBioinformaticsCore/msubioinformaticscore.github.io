@@ -37,13 +37,13 @@ title: Resources
       <p>Uploading Sequencing Data From a Public Database Using nf-core/fetchngs</p>
     </a>
   </div>
-</div>
 
 <div class="resource-item silver">
     <a href="./globus_local">
       <p>Transferring Local Files to the MSU HPCC using Globus</p>
     </a>
   </div>
+</div>
 
   <!-- Tutorials Section -->
 ## <i class="fa fa-project-diagram"></i> Tutorials
