@@ -5,16 +5,17 @@ date: 2024-11-25
 author: "Leah Terrian"
 categories: jekyll update
 ---
-
+<!--
 <style>
 summary {
   font-size: 18px;
   font-weight: bold;
 }
 </style>
+-->
 
-# Bioinformatics Tips and Tricks
-Think of this like an FAQs page for bioinformatics.
+# Bioinformatics General Advice
+Think of this like a "tips and tricks" page for bioinformatics.
 
 <details>
 <summary>Use quality metrics!</summary>
