@@ -5,14 +5,12 @@ date: 2024-11-25
 author: "Leah Terrian"
 categories: jekyll update
 ---
-<!--
 <style>
 summary {
   font-size: 18px;
   font-weight: bold;
 }
 </style>
--->
 
 # Bioinformatics General Advice
 Think of this like a "tips and tricks" page for bioinformatics.
