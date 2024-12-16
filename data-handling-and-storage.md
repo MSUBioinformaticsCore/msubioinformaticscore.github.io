@@ -2,7 +2,9 @@
 layout: post
 title: "HPCC Data Handling Guide: Uploading, Storing, and Sharing Sequencing Data"
 date: 2024-08-03
-author: "John Vusich" "Leah Terrian"
+author: 
+- "John Vusich"
+- "Leah Terrian"
 categories: jekyll update
 ---
 
