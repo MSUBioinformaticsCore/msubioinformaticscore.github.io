@@ -2,7 +2,7 @@
 layout: post
 title: "Instructions for Transferring Data from Globus to the MSU HPCC"
 date: 2024-09-23
-author: "John Vusich"
+author: John Vusich, Leah Terrian
 categories: jekyll update
 ---
 
