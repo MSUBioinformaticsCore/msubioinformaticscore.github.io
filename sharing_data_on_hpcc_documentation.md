@@ -3,7 +3,7 @@ layout: post
 title: "Instructions for Sharing Data With the Bioinformatics Core on the MSU HPCC"
 date: 2024-10-2
 updated: 2024-11-7
-author: Leah Terrian, Nicholas Panchy
+author: Leah Terrian, Nicholas Panchy, John Vusich
 categories: jekyll update
 ---
 # Instructions for Sharing Data With the Bioinformatics Core on the MSU HPCC
