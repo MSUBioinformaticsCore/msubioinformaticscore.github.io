@@ -2,7 +2,7 @@
 layout: post
 title: "Transferring Files from MSU OneDrive to the MSU HPCC via Globus"
 date: 2024-10-13
-author: "John Vusich"
+author: John Vusich, Leah Terrian
 categories: jekyll update
 ---
 
