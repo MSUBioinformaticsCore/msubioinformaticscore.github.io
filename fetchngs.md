@@ -2,7 +2,7 @@
 layout: post
 title: "Using nf-core/fetchngs for Data Transfer on MSU HPCC"
 date: 2024-11-03
-author: "John Vusich"
+author: John Vusich, Leah Terrian
 categories: jekyll update
 ---
 
