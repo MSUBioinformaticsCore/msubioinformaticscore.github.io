@@ -2,7 +2,7 @@
 layout: post
 post title: "Comprehensive Bulk RNA-seq Analysis Using nf-core/rnaseq and nf-core/differential-abundance on MSU HPCC"
 date: 2024-11-04
-author: "John Vusich"
+author: John Vusich, Leah Terrian
 categories: jekyll update
 ---
 
