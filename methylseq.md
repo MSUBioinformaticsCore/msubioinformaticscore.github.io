@@ -2,7 +2,7 @@
 layout: post
 title: "Running nf-core/methylseq on MSU HPCC"
 date: 2024-11-04
-author: "John Vusich"
+author: John Vusich, Leah Terrian
 categories: jekyll update
 ---
 
