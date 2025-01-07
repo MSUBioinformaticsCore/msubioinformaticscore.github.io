@@ -38,7 +38,7 @@ The working directory, which stores intermediate and temporary files, can be spe
 
 ### 1. Load Nextflow Module
 
-Ensure **Nextflow** is available in your environment:
+Ensure that **Nextflow** is available in your environment:
 
 ```bash
 module load Nextflow
@@ -69,7 +69,7 @@ Ensure all paths to the FASTQ files are correct.
 
 ### 4. Configure ICER Environment
 
-Create an `icer.config` file to run the pipeline with SLURM:
+Create a `nextflow.config` file to run the pipeline with SLURM:
 
 ```groovy
 process {
@@ -77,14 +77,13 @@ process {
 }
 ```
 
-### 5. Run nf-core/atacseq
+### 5. Create Bash Script
 
-### Example SLURM Job Submission Script
-
-Below is a typical shell script for submitting an **nf-core/atacseq** job to SLURM:
+Create a `submit_atacseq_job.sh` file. You can copy and paste the below script, but note that you will have to modify the `--outdir`, `--fasta`, and `--gtf` to match your output and reference genome paths.
+This is a typical shell script for submitting an **nf-core/atacseq** job to SLURM:
 
 ```bash
-#!/bin/bash
+#!/bin/bash --login
 
 #SBATCH --job-name=atacseq_job
 #SBATCH --time=24:00:00
@@ -95,29 +94,38 @@ cd $HOME/atacseq_project
 module load Nextflow/23.10.0
 
 nextflow pull nf-core/atacseq
-nextflow run nf-core/atacseq -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./atacseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --gtf ./Homo_sapiens.GRCh38.108.gtf.gz -work-dir $SCRATCH/atacseq_work -c ./nextflow.config
+nextflow run nf-core/atacseq -r 2.1.2 --read_length 150 --input ./samplesheet.csv -profile singularity --outdir ./atacseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --gtf ./Homo_sapiens.GRCh38.108.gtf.gz -work-dir $SCRATCH/atacseq_work -c ./nextflow.config
 ```
 
 - Modify `--outdir`, `--fasta`, and `--gtf` to match your output and reference genome paths.
+- Modify `--read_length` to match the number of base pairs per read in your fastq files (commonly = 100 or 150).
 
-### Note on Reference Genomes
+### 6. Run Bash Script with SLURM
+In the terminal:
 
-Common reference genomes can be found in the research common-data space on the HPCC. Refer to the README file in that directory for more details. Additionally, you can find guidance on downloading reference genomes from Ensembl in this [GitHub repository](https://github.com/johnvusich/reference-genomes).
+```bash
+sbatch submit_atacseq_job.sh
+```
+- Note: This job will likely take several hours to complete.
+
+### 7. Monitor and Manage the Run
+
+- Use `squeue` or `sacct` to check the job status. I.e. "squeue -u username".
+- Verify the output in the specified results directory.
+
+## Note on Reference Genomes
+
+Common reference genomes can be found in the /mnt/research/common-data/Bio/ folder on the HPCC. You can find guidance on finding reference genomes on the HPCC or downloading them from Ensembl in this [GitHub repository](https://github.com/johnvusich/reference-genomes).
 
 Execute the pipeline with the following command. This example includes a `-w` flag to specify a working directory in the user's scratch space for intermediate files:
 
 ```bash
-nextflow run nf-core/atacseq -profile singularity --input samplesheet.csv --genome GRCh38 -c icer.config -w $SCRATCH/atacseq_project
+nextflow run nf-core/atacseq -profile singularity --input samplesheet.csv --genome GRCh38 -c nextflow.config -w $SCRATCH/atacseq_project
 ```
 
 - The `-profile singularity` flag ensures that **Singularity** containers are used.
 - Modify `--genome` to match your reference genome.
 - Modify `-w $SCRATCH/atacseq_project` to better suit your project description, if needed.
-
-### 6. Monitor and Manage the Run
-
-- Use `squeue` or `sacct` to check the job status.
-- Verify the output in the specified results directory.
 
 ## Best Practices
 

@@ -2,7 +2,7 @@
 layout: post
 post title: "General Advice"
 date: 2024-11-25
-author: "Leah Terrian"
+author: Leah Terrian
 categories: jekyll update
 ---
 <style>
