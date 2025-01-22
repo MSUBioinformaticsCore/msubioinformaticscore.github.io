@@ -86,10 +86,10 @@ process {
 #SBATCH --cpus-per-task=16
 
 cd $HOME/rnaseq_project
-module load Nextflow/23.10.0
+module load Nextflow/24.04.2
 
 nextflow pull nf-core/rnaseq
-nextflow run nf-core/rnaseq -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./rnaseq_results --genome GRCh38 -work-dir $SCRATCH/rnaseq_work -c ./icer.config
+nextflow run nf-core/rnaseq -r 3.18.0 --input ./samplesheet.csv -profile singularity --outdir ./rnaseq_results --genome GRCh38 -work-dir $SCRATCH/rnaseq_work -c ./icer.config
 ```
 
 - Modify `--outdir` and `--genome` as needed.
