@@ -91,7 +91,7 @@ This is a typical shell script for submitting an **nf-core/atacseq** job to SLUR
 #SBATCH --cpus-per-task=8
 
 cd $HOME/atacseq_project
-module load Nextflow/23.10.0
+module load Nextflow/24.04.2
 
 nextflow pull nf-core/atacseq
 nextflow run nf-core/atacseq -r 2.1.2 --read_length 150 --input ./samplesheet.csv -profile singularity --outdir ./atacseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --gtf ./Homo_sapiens.GRCh38.108.gtf.gz -work-dir $SCRATCH/atacseq_work -c ./nextflow.config
