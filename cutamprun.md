@@ -75,10 +75,10 @@ Below is a shell script for submitting an **nf-core/cutandrun** job to SLURM:
 #SBATCH --cpus-per-task=12
 
 cd $HOME/cutandrun_project
-module load Nextflow/23.10.0
+module load Nextflow/24.04.2
 
 nextflow pull nf-core/cutandrun
-nextflow run nf-core/cutandrun -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./cutandrun_results --genome GRCh38 -work-dir $SCRATCH/cutandrun_work -c ./nextflow.config
+nextflow run nf-core/cutandrun -r 3.2.2 --input ./samplesheet.csv -profile singularity --outdir ./cutandrun_results --genome GRCh38 -work-dir $SCRATCH/cutandrun_work -c ./nextflow.config
 ```
 - Modify `--outdir` and `--genome` to match your paths and reference genome.
 
