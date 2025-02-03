@@ -75,10 +75,10 @@ Below is a shell script for submitting an **nf-core/sarek** job to SLURM:
 #SBATCH --cpus-per-task=16
 
 cd $HOME/sarek_project
-module load Nextflow/23.10.0
+module load Nextflow/24.04.2
 
 nextflow pull nf-core/sarek
-nextflow run nf-core/sarek -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./sarek_results --genome GRCh38 -work-dir $SCRATCH/sarek_work -c ./nextflow.config
+nextflow run nf-core/sarek -r 3.5.0 --input ./samplesheet.csv -profile singularity --outdir ./sarek_results --genome GRCh38 -work-dir $SCRATCH/sarek_work -c ./nextflow.config
 ```
 - Modify `--outdir` and `--genome` to match your paths and reference genome.
 
