@@ -75,10 +75,10 @@ Below is a shell script for submitting an **nf-core/methylseq** job to SLURM:
 #SBATCH --cpus-per-task=12
 
 cd $HOME/methylseq_project
-module load Nextflow/23.10.0
+module load Nextflow/24.04.2
 
 nextflow pull nf-core/methylseq
-nextflow run nf-core/methylseq -r 3.14.0 --input ./samplesheet.csv -profile singularity --outdir ./methylseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --bismark_index ./bismark_index/ -work-dir $SCRATCH/methylseq_work -c ./nextflow.config
+nextflow run nf-core/methylseq -r 3.0.0 --input ./samplesheet.csv -profile singularity --outdir ./methylseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --bismark_index ./bismark_index/ -work-dir $SCRATCH/methylseq_work -c ./nextflow.config
 ```
 - Modify `--outdir`, `--fasta`, and `--bismark_index` to match your paths and reference genome.
 
