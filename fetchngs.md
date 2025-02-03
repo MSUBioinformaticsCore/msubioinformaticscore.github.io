@@ -34,7 +34,15 @@ mkdir ~/fetchngs_project
 cd ~/fetchngs_project
 ```
 
-### 3. Configure ICER Environment
+### 3. Prepare Sample Sheet
+Create a list of SRA, GEO, ENA, or DDBJ database IDs (`ids.csv`) with the following format:
+```csv
+SRR1234567
+SRR1234568
+SRR1234569
+```
+
+### 4. Configure ICER Environment
 Create an `icer.config` file for using SLURM with **Nextflow**:
 ```groovy
 process {
@@ -42,27 +50,33 @@ process {
 }
 ```
 
-### 4. Run nf-core/fetchngs
-Download sequencing files and metadata:
+### 5. Run nf-core/fetchngs
+
+### Example SLURM Job Submission Script
+Below is a shell script for submitting an **nf-core/fetchngs** job to SLURM:
+
 ```bash
-nextflow run nf-core/fetchngs -profile singularity --input accession_list.csv -c icer.config
+#!/bin/bash --login
+
+#SBATCH --job-name=fetchngs_job
+#SBATCH --time=72:00:00
+#SBATCH --mem=64GB
+#SBATCH --cpus-per-task=16
+
+cd $HOME/fetchngs_project
+module load Nextflow/24.04.2
+nextflow run nf-core/fetchngs -r 1.12.0 -profile singularity --input ids.csv -c icer.config
 ```
 
-### Example Accession List File
-Create an `accession_list.csv` file with the following format:
-```plaintext
-SRR1234567
-SRR1234568
-SRR1234569
-```
+
 Each line should contain a unique accession ID for the data you wish to download.
-- Replace `accession_list.csv` with a file containing the list of accession IDs you wish to retrieve.
+- Replace `ids.csv` with a file containing the list of database IDs you wish to retrieve.
 - The `-profile singularity` flag ensures **Singularity** containers are used with ICER-specific configurations.
 
 ### 5. Review and Manage Downloads
 Ensure that the transferred files are stored and organized correctly:
 - Check your output directories for completeness.
-- Use `sacct` or `squeue` to monitor job progress and confirm job completion.
+- Use `squeue -u $USER` to monitor job progress and confirm job completion.
 
 ## Best Practices
 - **Organize Accession Lists**: Maintain a clear and well-documented list of accession IDs.
