@@ -86,7 +86,8 @@ Once the job is finished, your downloaded files will be in your ~/fetchngs_proje
 ## Quick Reminders
 - **Never type file content into the terminal.** Always create or edit files using a text editor (like **nano**).
 - Follow each step carefully.
-- Visit the [nf-core/fetchngs webpage](https://nf-co.re/fetchngs) for more detailed instructions and use cases.
+- Visit the [nf-core/fetchngs](https://nf-co.re/fetchngs) webpage for more detailed instructions and use cases.
+
 ---
 
 ## Conclusion
