@@ -74,7 +74,7 @@ process {
 Save and exit the editor.
 
 #### 4. Prepare the Job Submission Script
-Now, create a shell script to run the pipeline. Create a file called run_rnaseq.sh:
+Now, create a shell script to run the pipeline. Create a file called run_cutandrun.sh:
 ```bash
 nano run_cutandrun.sh
 ```
@@ -118,7 +118,7 @@ nextflow run nf-core/cutandrun -r 3.2.2 -profile singularity -work-dir $WORKDIR 
 
 Submit your job to SLURM by typing:
 ```bash
-sbatch run_rnaseq.sh
+sbatch run_cutandrun.sh
 ```
 This sends your job to the scheduler on the HPCC.
 
