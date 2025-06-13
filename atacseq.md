@@ -21,7 +21,7 @@ The **MSU HPCC**, managed by ICER, provides an efficient and scalable environmen
 ## Prerequisites
 
 - Access to MSU HPCC with a valid ICER account.
-- Basic knowledge of **Singularity** and **Nextflow** module usage.
+- Basic familiarity with the command line.
 
 ## Step-by-Step Tutorial
 
@@ -36,96 +36,99 @@ On the MSU HPCC:
 
 The working directory, which stores intermediate and temporary files, can be specified separately using the `-w` flag when running the pipeline. This helps keep your analysis outputs and temporary data organized.
 
-### 1. Load Nextflow Module
-
-Ensure that **Nextflow** is available in your environment:
-
+#### 1. Create a Project Directory
+Make a new folder for your RNA-seq analysis:
 ```bash
-module load Nextflow
+mkdir $HOME/atacseq
+cd $HOME/atacseq
 ```
+This command creates the directory and moves you into it.
 
-### 2. Create an Analysis Directory
-
-Set up a dedicated directory for your analysis (referred to as the Analysis Directory):
-
+#### 2. Prepare a Sample Sheet
+You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Use a text editor (like nano) to create this file:
 ```bash
-mkdir $HOME/atacseq_project
-cd $HOME/atacseq_project
+nano samplesheet.csv
 ```
-
-- Modify `$HOME/atacseq_project` to better suit your project description, if needed.
-
-### 3. Prepare Sample Sheet
-
-Create a sample sheet (`samplesheet.csv`) with the following format:
-
+Then, add your sample information in CSV format. For example:
 ```csv
 sample,fastq_1,fastq_2,replicate
 sample1,/path/to/sample1_R1.fastq.gz,/path/to/sample1_R2.fastq.gz,1
 sample2,/path/to/sample2_R1.fastq.gz,/path/to/sample2_R2.fastq.gz,1
 ```
+Save the file (in nano, press Ctrl+O then Ctrl+X to exit).
 
-Ensure all paths to the FASTQ files are correct.
-
-### 4. Configure ICER Environment
-
-Create a `nextflow.config` file to run the pipeline with SLURM:
-
+#### 3. Create a Configuration File
+Do not type file content directly into the terminal. Use a text editor instead. Create a file named icer.config:
+```bash
+nano icer.config
+```
+Paste the following content into the file:
 ```groovy
 process {
     executor = 'slurm'
 }
 ```
+Save and exit the editor.
 
-### 5. Create Bash Script
-
-Create a `submit_atacseq_job.sh` file. You can copy and paste the below script, but note that you will have to modify the `--outdir`, `--fasta`, and `--gtf` to match your output and reference genome paths.
-This is a typical shell script for submitting an **nf-core/atacseq** job to SLURM:
-
+#### 4. Prepare the Job Submission Script
+Now, create a shell script to run the pipeline. Create a file called run_atacseq.sh:
+```bash
+nano run_atacseq.sh
+```
+Paste in the following script:
 ```bash
 #!/bin/bash --login
-
-#SBATCH --job-name=atacseq_job
+#SBATCH --job-name=atacseq
 #SBATCH --time=24:00:00
-#SBATCH --mem=24GB
-#SBATCH --cpus-per-task=8
+#SBATCH --mem=4GB
+#SBATCH --cpus-per-task=1
+#SBATCH --output=atacseq-%j.out
 
-cd $HOME/atacseq_project
-module load Nextflow/24.04.2
+# Load Nextflow
+module purge
+module load Nextflow
 
+# Set the paths to the genome files
+GENOME_DIR="/mnt/research/common-data/Bio/genomes/Ensembl_GRCm39_mm39" #Example GRCm39
+FASTA="$GENOME_DIR/genome.fa" # Example FASTA
+GTF="$GENOME_DIR/genes.gtf" # Example GTF
+
+# Define the samplesheet, outdir, workdir, and config
+SAMPLESHEET="$HOME/atacseq/samplesheet.csv" # Example path to sample sheet
+OUTDIR="$HOME/atacseq/results" # Example path to results directory
+WORKDIR="$SCRATCH/atacseq/work" # Example path to work directory
+CONFIG="$HOME/atacseq/icer.config" # Example path to icer.config file
+
+# Run the RNA-seq analysis
 nextflow pull nf-core/atacseq
-nextflow run nf-core/atacseq -r 2.1.2 --read_length 150 --input ./samplesheet.csv -profile singularity --outdir ./atacseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --gtf ./Homo_sapiens.GRCh38.108.gtf.gz -work-dir $SCRATCH/atacseq_work -c ./nextflow.config
+nextflow run nf-core/atacseq -r 2.1.2 -profile singularity -work-dir $WORKDIR -resume \
+--input $SAMPLESHEET \
+--outdir $OUTDIR \
+--fasta $FASTA \
+--gtf $GTF \
+--read_length 150 \
+-c $CONFIG
 ```
+Make edits as needed. Modify `--read_length` to match the number of base pairs per read in your fastq files (commonly = 100 or 150).
+Save and close the file.
 
-- Modify `--outdir`, `--fasta`, and `--gtf` to match your output and reference genome paths.
-- Modify `--read_length` to match the number of base pairs per read in your fastq files (commonly = 100 or 150).
-
-### 6. Run Bash Script with SLURM
-In the terminal:
-
+#### 5. Submit Your Job
+Submit your job to SLURM by typing:
 ```bash
-sbatch submit_atacseq_job.sh
+sbatch run_atacseq.sh
 ```
-- Note: This job will likely take several hours to complete.
+This sends your job to the scheduler on the HPCC.
 
-### 7. Monitor and Manage the Run
-
-- Use `squeue` or `sacct` to check the job status. I.e. "squeue -u username".
-- Verify the output in the specified results directory.
+### 6. Monitor Your Job
+Check the status of your job with:
+```bash
+squeue -u $USER
+```
+After completion, your output files will be in the `results` folder inside your `atacseq` directory.
 
 ## Note on Reference Genomes
 
 Common reference genomes can be found in the /mnt/research/common-data/Bio/ folder on the HPCC. You can find guidance on finding reference genomes on the HPCC or downloading them from Ensembl in this [GitHub repository](https://github.com/johnvusich/reference-genomes).
-
-Execute the pipeline with the following command. This example includes a `-w` flag to specify a working directory in the user's scratch space for intermediate files:
-
-```bash
-nextflow run nf-core/atacseq -profile singularity --input samplesheet.csv --genome GRCh38 -c nextflow.config -w $SCRATCH/atacseq_project
-```
-
-- The `-profile singularity` flag ensures that **Singularity** containers are used.
-- Modify `--genome` to match your reference genome.
-- Modify `-w $SCRATCH/atacseq_project` to better suit your project description, if needed.
 
 ## Best Practices
 
@@ -145,4 +148,3 @@ If you encounter any issues or have questions while running **nf-core/atacseq** 
 ## Conclusion
 
 Running **nf-core/atac-seq** on the MSU HPCC is streamlined with **Singularity** and **Nextflow** modules. This setup supports reproducible, efficient, and large-scale ATAC-seq analyses. By following this guide, you can take full advantage of the HPCC's computing power for your bioinformatics projects.
-
