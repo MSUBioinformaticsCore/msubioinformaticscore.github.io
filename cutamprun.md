@@ -8,13 +8,13 @@ categories: jekyll update
 
 ## Overview
 
-This guide explains how to run the **nf-core/cutandrun** pipeline for CUT\&RUN and CUT\&Tag analysis, ensuring reproducibility and efficiency.
+This guide explains how to run the **nf-core/cutandrun** pipeline for CUT&RUN and CUT&Tag analysis, ensuring reproducibility and efficiency.
 
 ## Key Benefits of nf-core/cutandrun
 
 **nf-core/cutandrun** offers:
 
-* **Reproducible CUT\&RUN/CUT\&Tag Analysis**: Comprehensive and standardized workflows.
+* **Reproducible CUT&RUN/CUT&Tag Analysis**: Comprehensive and standardized workflows.
 * **Portability**: Runs seamlessly across various computing infrastructures.
 * **Scalability**: Capable of handling small and large-scale datasets.
 
@@ -102,7 +102,7 @@ OUTDIR="$HOME/cutandrun/results" # Example path to results directory
 WORKDIR="$SCRATCH/cutandrun/work" # Example path to work directory
 CONFIG="$HOME/cutandrun/icer.config" # Example path to icer.config file
 
-# Run the CUT\&RUN analysis
+# Run the CUT&RUN analysis
 nextflow pull nf-core/cutandrun
 nextflow run nf-core/cutandrun -r 3.2.2 -profile singularity -work-dir $WORKDIR -resume \
 --input $SAMPLESHEET \
