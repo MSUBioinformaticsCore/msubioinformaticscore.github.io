@@ -8,7 +8,7 @@ categories: jekyll update
 
 ## Overview
 
-This guide will show you, step by step, how to analyze bulk RNA-seq data using the **nf-core/rnaseq** pipeline (for QC, alignment, and quantification) and the **nf-core/differentialabundance** pipeline for differential expression analysis and GSEA. Users can [jump directly to the differential expression steps](bulk_rnaseq.md#2-differential-expression-and-gsea) if they already have a counts table.
+This guide will show you, step by step, how to analyze bulk RNA-seq data using the **nf-core/rnaseq** pipeline (for QC, alignment, and quantification) and the **nf-core/differentialabundance** pipeline for differential expression analysis and GSEA. Users can [jump directly to the differential expression steps](#part-2-optional--differential-expression-analysis) if they already have a counts table.
 
 ## Key Benefits
 
