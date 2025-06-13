@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Comprehensive Bulk RNA-seq Analysis Using nf-core/rnaseq and nf-core/differentialabundance on MSU HPCC"
+title: "Bulk RNA-seq Analysis Using nf-core/rnaseq and nf-core/differentialabundance on MSU HPCC"
 date: 2024-11-04
 author: John Vusich, Leah Terrian, Nicholas Panchy
 categories: jekyll update
@@ -21,9 +21,22 @@ This guide will show you, step by step, how to analyze bulk RNA-seq data using t
 - Access to MSU HPCC with a valid ICER account.
 - Basic familiarity with the command line.
 
+### Note on Directory Variables
+
+On the MSU HPCC:
+
+* `$HOME` refers to the user’s home directory (`/mnt/home/username`).
+* `$SCRATCH` refers to the user’s scratch directory, ideal for temporary files and large data processing.
+
+### Note on Working Directory
+
+The working directory, where intermediate and temporary files are stored, can be specified using the `-w` flag when running the pipeline. This helps keep outputs and temporary data organized.
+
+## Step-by-Step Tutorial
+
 ## Part 1: Pre-processing with nf-core/rnaseq
 
-#### 1. Create Your Project Directory
+#### 1. Create a Project Directory
 Make a new folder for your RNA-seq analysis:
 ```bash
 mkdir $HOME/rnaseq
@@ -31,7 +44,7 @@ cd $HOME/rnaseq
 ```
 This command creates the directory and moves you into it.
 
-#### 2. Prepare Your Sample Sheet
+#### 2. Prepare a Sample Sheet
 You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Use a text editor (like nano) to create this file:
 ```bash
 nano samplesheet.csv
@@ -46,7 +59,7 @@ TREATMENT_REP2,/path/to/TREATMENT_REP2_R1.fastq.gz,/path/to/TREATMENT_REP2_R2.fa
 ```
 Save the file (in nano, press Ctrl+O then Ctrl+X to exit).
 
-#### 3. Create the Configuration File
+#### 3. Create a Configuration File
 Do not type file content directly into the terminal. Use a text editor instead. Create a file named icer.config:
 ```bash
 nano icer.config
@@ -228,6 +241,15 @@ Once finished, your differential expression results will be in `$HOME/differenti
 - Follow each step carefully.
 - Visit the [`nf-core/rnaseq`](https://nf-co.re/rnaseq) or [`nf-core/differentialabundance`](https://nf-co.re/differentialabundance) webpage for more detailed instructions and use cases.
 
+### Getting Help
+
+If you encounter issues running **nf-core/rnaseq** on the HPCC, consider these resources:
+
+- **nf-core Community**: Visit the [nf-core website](https://nf-co.re) for documentation and support.
+- **ICER Support**: Contact ICER via the [MSU ICER support page](https://icer.msu.edu/contact).
+- **Slack Channel**: Join the **nf-core** Slack for real-time assistance.
+- **Nextflow Documentation**: See the [Nextflow documentation](https://www.nextflow.io/docs/latest/index.html) for further details.
+
 ---
 
 ## Conclusion
@@ -235,8 +257,3 @@ Using **nf-core/rnaseq** and **nf-core/differentialabundance** on the MSU HPCC s
 
 ---
 
-### Getting Help
-
-- **MSU HPCC Support**:
-  - **Email**: [general@rt.hpcc.msu.edu](mailto:general@rt.hpcc.msu.edu)
-  - **Website**: [https://contact.icer.msu.edu/contact](https://contact.icer.msu.edu/contact)
