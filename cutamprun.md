@@ -1,10 +1,10 @@
--------------------------
+---
 layout: post
 title: "Running nf-core/cutandrun on MSU HPCC"
 date: 2024-11-04
 author: John Vusich, Leah Terrian, Nicholas Panchy
 categories: jekyll update
--------------------------
+---
 
 ## Overview
 
