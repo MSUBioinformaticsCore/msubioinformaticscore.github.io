@@ -63,6 +63,7 @@ Copy and paste the following script into the file:
 #SBATCH --time=3:59:00
 #SBATCH --mem=4GB
 #SBATCH --cpus-per-task=1
+#SBATCH --output=fetchngs-%j.out
 
 # Load Nextflow
 module purge
