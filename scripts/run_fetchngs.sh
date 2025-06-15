@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=fetchngs_job
 #SBATCH --time=3:59:00
-#SBATCH --mem=16GB
-#SBATCH --cpus-per-task=8
+#SBATCH --mem=4GB
+#SBATCH --cpus-per-task=1
 
 # Load Nextflow
 module purge
