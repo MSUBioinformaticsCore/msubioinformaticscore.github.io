@@ -16,8 +16,8 @@ This guide will show you, step by step, how to download sequencing data from a d
 ### 1. Create a Project Directory
 Open your terminal and type the following command:
 ```bash
-mkdir ~/fetchngs_project
-cd ~/fetchngs_project
+mkdir ~/fetchngs
+cd ~/fetchngs
 ```
 This creates the folder and moves you into it.
 
@@ -64,9 +64,22 @@ Copy and paste the following script into the file:
 #SBATCH --mem=16GB
 #SBATCH --cpus-per-task=8
 
-cd $HOME/fetchngs_project
+# Load Nextflow
+module purge
+module load Nextflow
+
+# Define the samplesheet, outdir, workdir, and config
+SAMPLESHEET="$HOME/fetchngs/ids.csv" # Example path to database IDs
+OUTDIR="$HOME/fetchngs/results" # Example path to results directory
+WORKDIR="$SCRATCH/fetchngs/work" # Example path to work directory
+CONFIG="$HOME/fetchngs/icer.config" # Example path to icer.config file
+
+cd $HOME/fetchngs
 module load Nextflow/24.04.2
-nextflow run nf-core/fetchngs -r 1.12.0 -profile singularity --input ids.csv -c icer.config
+nextflow run nf-core/fetchngs -r 1.12.0 -profile singularity -work-dir $WORKDIR -resume \
+--input $SAMPLESHEET \
+--outdir $OUTDIR \
+-c $CONFIG
 ```
 Save and close the file.
 
@@ -81,12 +94,19 @@ You can see the status of your job by typing:
 ```bash
 squeue -u $USER
 ```
-Once the job is finished, your downloaded files will be in your ~/fetchngs_project directory.
+Once the job is finished, your downloaded files will be in your ~/fetchngs directory.
 
 ## Quick Reminders
 - **Never type file content into the terminal.** Always create or edit files using a text editor (like **nano**).
 - Follow each step carefully.
 - Visit the [nf-core/fetchngs](https://nf-co.re/fetchngs) webpage for more detailed instructions and use cases.
+
+### Getting Help
+
+- **nf-core Community**: Visit the [nf-core website](https://nf-co.re) for documentation and support.
+- **ICER Support**: Contact ICER via the [MSU ICER support page](https://icer.msu.edu/contact).
+- **Slack Channel**: Join the **nf-core** Slack for real-time assistance.
+- **Nextflow Documentation**: See the [Nextflow documentation](https://www.nextflow.io/docs/latest/index.html) for further details.
 
 ---
 
@@ -94,12 +114,3 @@ Once the job is finished, your downloaded files will be in your ~/fetchngs_proje
 Using **nf-core/fetchngs** on the MSU HPCC simplifies the process of transferring raw sequencing data and metadata, streamlining data acquisition for bioinformatics projects. The combination of **Singularity** and **Nextflow** ensures a reproducible and efficient workflow tailored for high-performance computing environments.
 
 ---
-
-### Getting Help
-
-- **MSU HPCC Support**:
-  - **Email**: [general@rt.hpcc.msu.edu](mailto:general@rt.hpcc.msu.edu)
-  - **Phone**: (517) 353-9309
-  - **Website**: [https://contact.icer.msu.edu/contact](https://contact.icer.msu.edu/contact)
-  
-
