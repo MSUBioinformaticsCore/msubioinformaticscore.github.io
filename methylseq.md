@@ -7,10 +7,9 @@ categories: jekyll update
 ---
 
 ## Overview
-The **MSU HPCC**, managed by ICER, is an excellent platform for bioinformatics workflows. This guide explains how to run the **nf-core/methylseq** pipeline for methylation (bisulfite-sequencing) analysis, ensuring efficiency and reproducibility.
+This guide shows you how to run the **nf-core/methylseq** pipeline for methylation (bisulfite-sequencing) analysis, ensuring efficiency and reproducibility.
 
 ## Key Benefits of nf-core/methylseq
-**nf-core/methylseq** provides:
 
 - **Reproducible Methylation Analysis**: Comprehensive and standardized workflows.
 - **Portability**: Runs seamlessly across computing environments.
@@ -20,8 +19,6 @@ The **MSU HPCC**, managed by ICER, is an excellent platform for bioinformatics w
 - Access to MSU HPCC with a valid ICER account.
 - Basic understanding of **Singularity** and **Nextflow**.
 
-## Step-by-Step Tutorial
-
 ### Note on Directory Variables
 On the MSU HPCC:
 - `$HOME` refers to the user’s home directory (`/mnt/home/username`).
@@ -30,71 +27,100 @@ On the MSU HPCC:
 ### Note on Working Directory
 The working directory, which stores intermediate and temporary files, can be specified using the `-w` flag when running the pipeline. This helps keep outputs and temporary data organized.
 
-### 1. Load Nextflow Module
-Ensure **Nextflow** is loaded:
-```bash
-module load Nextflow
-```
+## Step-by-Step Tutorial
 
-### 2. Create an Analysis Directory
-Set up a directory for your analysis (referred to as the Analysis Directory):
+#### 1. Create a Project Directory
+Make a new folder for your RNA-seq analysis:
 ```bash
-mkdir $HOME/methylseq_project
-cd $HOME/methylseq_project
+mkdir $HOME/methylseq
+cd $HOME/methylseq
 ```
-- Modify `$HOME/methylseq_project` to better suit your project.
+This command creates the directory and moves you into it.
 
-### 3. Prepare Sample Sheet
-Create a sample sheet (`samplesheet.csv`) with the following format:
+#### 2. Prepare a Sample Sheet
+You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Use a text editor (like nano) to create this file:
+```bash
+nano samplesheet.csv
+```
+Then, add your sample information in CSV format. For example:
 ```csv
 sample,fastq_1,fastq_2,replicate
 sample1,/path/to/sample1_R1.fastq.gz,/path/to/sample1_R2.fastq.gz,1
 sample2,/path/to/sample2_R1.fastq.gz,/path/to/sample2_R2.fastq.gz,1
 ```
-Ensure all paths to the FASTQ files are accurate.
+Save the file (in nano, press Ctrl+O then Ctrl+X to exit).
 
-### 4. Configure ICER Environment
-Create an `icer.config` file for SLURM:
+#### 3. Create a Configuration File
+Do not type file content directly into the terminal. Use a text editor instead. Create a file named icer.config:
+```bash
+nano icer.config
+```
+Paste the following content into the file:
 ```groovy
 process {
     executor = 'slurm'
 }
 ```
+Save and exit the editor.
 
-### 5. Run nf-core/methylseq
-
-### Example SLURM Job Submission Script
-Below is a shell script for submitting an **nf-core/methylseq** job to SLURM:
-
+#### 4. Prepare the Job Submission Script
+Now, create a shell script to run the pipeline. Create a file called run_methylseq.sh:
 ```bash
-#!/bin/bash
-
-#SBATCH --job-name=methylseq_job
-#SBATCH --time=48:00:00
-#SBATCH --mem=48GB
-#SBATCH --cpus-per-task=12
-
-cd $HOME/methylseq_project
-module load Nextflow/24.04.2
-
-nextflow pull nf-core/methylseq
-nextflow run nf-core/methylseq -r 3.0.0 --input ./samplesheet.csv -profile singularity --outdir ./methylseq_results --fasta ./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz --bismark_index ./bismark_index/ -work-dir $SCRATCH/methylseq_work -c ./nextflow.config
+nano run_methylseq.sh
 ```
-- Modify `--outdir`, `--fasta`, and `--bismark_index` to match your paths and reference genome.
+Paste in the following script:
+```bash
+#!/bin/bash --login
+#SBATCH --job-name=methylseq
+#SBATCH --time=24:00:00
+#SBATCH --mem=4GB
+#SBATCH --cpus-per-task=1
+#SBATCH --output=methylseq-%j.out
+
+# Load Nextflow
+module purge
+module load Nextflow
+
+# Set the paths to the genome files
+GENOME_DIR="/mnt/research/common-data/Bio/genomes/Ensembl_GRCm39_mm39" #Example GRCm39
+FASTA="$GENOME_DIR/genome.fa" # Example FASTA
+GTF="$GENOME_DIR/genes.gtf" # Example GTF
+
+# Define the samplesheet, outdir, workdir, and config
+SAMPLESHEET="$HOME/methylseq/samplesheet.csv" # Example path to sample sheet
+OUTDIR="$HOME/methylseq/results" # Example path to results directory
+WORKDIR="$SCRATCH/methylseq/work" # Example path to work directory
+CONFIG="$HOME/methylseq/icer.config" # Example path to icer.config file
+
+# Run the pipeline
+nextflow pull nf-core/methylseq
+nextflow run nf-core/methylseq -r 3.0.0 -profile singularity -work-dir $WORKDIR -resume \
+--input $SAMPLESHEET \
+--outdir $OUTDIR \
+--fasta $FASTA \
+--gtf $GTF \
+--bismark_index $HOME/methylseq/bismark_index
+-c $CONFIG
+./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz -work-dir $SCRATCH/methylseq_work -c ./nextflow.config
+```
+Make edits as needed. Save and close the file.
+
+#### 5. Submit Your Job
+Submit your job to SLURM by typing:
+```bash
+sbatch run_methylseq.sh
+```
+This sends your job to the scheduler on the HPCC.
+
+### 6. Monitor Your Job
+Check the status of your job with:
+```bash
+squeue -u $USER
+```
+After completion, your output files will be in the `results` folder inside your `methylseq` directory.
 
 ### Note on Reference Genomes
 Common reference genomes are located in the research common-data space on the HPCC. Refer to the README file for details. For guidance on downloading reference genomes from Ensembl, see this [GitHub repository](https://github.com/johnvusich/reference-genomes).
-
-Execute the pipeline with the following command, including the `-w` flag for a separate working directory:
-
-```bash
-nextflow run nf-core/methylseq -profile singularity --input samplesheet.csv --genome GRCh38 -c icer.config -w $SCRATCH/methylseq_project
-```
-- Modify `-w $SCRATCH/methylseq_project` as needed.
-
-### 6. Monitor and Manage the Run
-- Use `squeue` or `sacct` to track job status.
-- Check the output directory for results.
 
 ## Best Practices
 - **Review Logs**: Regularly check log files for warnings or errors.
@@ -108,6 +134,9 @@ If you encounter issues running **nf-core/methylseq** on the HPCC, consider thes
 - **Slack Channel**: Join the **nf-core** Slack for real-time assistance.
 - **Nextflow Documentation**: See the [Nextflow documentation](https://www.nextflow.io/docs/latest/index.html) for further details.
 
+---
+
 ## Conclusion
 Running **nf-core/methylseq** on the MSU HPCC is simplified using **Singularity** and **Nextflow**. This guide ensures reproducible and efficient methylation analysis, leveraging the HPCC’s computational capabilities for bioinformatics research.
 
+---
