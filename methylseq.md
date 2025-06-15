@@ -101,7 +101,6 @@ nextflow run nf-core/methylseq -r 3.0.0 -profile singularity -work-dir $WORKDIR 
 --gtf $GTF \
 --bismark_index $HOME/methylseq/bismark_index
 -c $CONFIG
-./Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz -work-dir $SCRATCH/methylseq_work -c ./nextflow.config
 ```
 Make edits as needed. Save and close the file.
 
