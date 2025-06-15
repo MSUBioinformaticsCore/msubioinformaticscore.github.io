@@ -74,8 +74,8 @@ OUTDIR="$HOME/fetchngs/results" # Example path to results directory
 WORKDIR="$SCRATCH/fetchngs/work" # Example path to work directory
 CONFIG="$HOME/fetchngs/icer.config" # Example path to icer.config file
 
-cd $HOME/fetchngs
-module load Nextflow/24.04.2
+# Run the pipeline
+nextflow pull nf-core/fetchngs
 nextflow run nf-core/fetchngs -r 1.12.0 -profile singularity -work-dir $WORKDIR -resume \
 --input $SAMPLESHEET \
 --outdir $OUTDIR \
