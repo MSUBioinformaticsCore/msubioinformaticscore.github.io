@@ -97,6 +97,22 @@ squeue -u $USER
 ```
 Once the job is finished, your downloaded files will be in your ~/fetchngs directory.
 
+## Troubleshooting
+If you are getting an error that is similar to the following:
+```groovy
+prefetch.3.0.8 warn: Maximum file size download limit is 20GB 
+prefetch.3.0.8: 1) 'SRRXXXXXXXX' (25GB) is larger than maximum allowed: skipped 
+```
+The solution is to edit `icer.config` to have the following text:
+```groovy
+process {
+    executor = 'slurm'
+    withName: SRATOOLS_PREFETCH {
+        ext.args = '--max-size 60g'
+    }
+}
+```
+
 ## Quick Reminders
 - **Never type file content into the terminal.** Always create or edit files using a text editor (like **nano**).
 - Follow each step carefully.
