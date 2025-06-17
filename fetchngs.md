@@ -103,7 +103,7 @@ If you are getting an error that is similar to the following:
 prefetch.3.0.8 warn: Maximum file size download limit is 20GB 
 prefetch.3.0.8: 1) 'SRRXXXXXXXX' (25GB) is larger than maximum allowed: skipped 
 ```
-The solution is to edit `icer.config` to have the following text:
+The [solution](https://github.com/nf-core/fetchngs/issues/66) is to edit `icer.config` to have the following text:
 ```groovy
 process {
     executor = 'slurm'
