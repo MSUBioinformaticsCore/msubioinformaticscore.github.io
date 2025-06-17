@@ -237,11 +237,10 @@ QX_F_vs_M,tissue_sex,QX_F,QX_M
 ```
 
 #### 6. Create the Job Submission Script
-
 Create a file called ```run_differential.sh```:
 ```bash
 cd $HOME/differential/
-nano run_differential.sh
+nano run_differential_atac.sh
 ```
 Paste in the following script:
 ```bash
@@ -291,7 +290,7 @@ Save and close the file.
 #### 7. Submit the Differential Expression Job
 Submit the job with:
 ```bash
-sbatch run_differential.sh
+sbatch run_differential_atac.sh
 ```
 
 #### 8. Monitor Your Job
