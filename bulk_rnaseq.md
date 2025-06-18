@@ -45,7 +45,7 @@ cd $HOME/rnaseq
 This command creates the directory and moves you into it.
 
 #### 2. Prepare a Sample Sheet
-You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Use a text editor (like nano) to create this file:
+You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Create and edit the file in [OnDemand](https://ondemand.hpcc.msu.edu/) or use a text editor (like nano) to create this file:
 ```bash
 nano samplesheet.csv
 ```
@@ -119,7 +119,7 @@ sbatch run_rnaseq.sh
 ```
 This sends your job to the scheduler on the HPCC.
 
-### 6. Monitor Your Job
+#### 6. Monitor Your Job
 Check the status of your job with:
 ```bash
 squeue -u $USER
