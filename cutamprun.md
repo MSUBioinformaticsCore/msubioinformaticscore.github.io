@@ -73,7 +73,7 @@ process {
 ```
 Save and exit the editor.
 
-#### 4. Prepare the Job Submission Script
+### 4. Prepare the Job Submission Script
 Now, create a shell script to run the pipeline. Create a file called run_cutandrun.sh:
 ```bash
 nano run_cutandrun.sh
@@ -112,10 +112,7 @@ nextflow run nf-core/cutandrun -r 3.2.2 -profile singularity -work-dir $WORKDIR 
 -c $CONFIG
 ```
 
-### 5. Run nf-core/cutandrun
-
-#### Example SLURM Job Submission Script
-
+### 5. Submit Your Job
 Submit your job to SLURM by typing:
 ```bash
 sbatch run_cutandrun.sh
