@@ -39,7 +39,7 @@ The working directory, which stores intermediate and temporary files, can be spe
 
 ## Part 1: Pre-processing with nf-core/atacseq
 
-#### 1. Create a Project Directory
+### 1. Create a Project Directory
 Make a new folder for your ATAC-seq analysis:
 ```bash
 mkdir $HOME/atacseq
@@ -47,7 +47,7 @@ cd $HOME/atacseq
 ```
 This command creates the directory and moves you into it.
 
-#### 2. Prepare a Sample Sheet
+### 2. Prepare a Sample Sheet
 You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Use a text editor (like nano) to create this file:
 ```bash
 nano samplesheet.csv
@@ -60,7 +60,7 @@ sample2,/path/to/sample2_R1.fastq.gz,/path/to/sample2_R2.fastq.gz,1
 ```
 Save the file (in nano, press Ctrl+O then Ctrl+X to exit).
 
-#### 3. Create a Configuration File
+### 3. Create a Configuration File
 Do not type file content directly into the terminal. Use a text editor instead. Create a file named icer.config:
 ```bash
 nano icer.config
@@ -73,7 +73,7 @@ process {
 ```
 Save and exit the editor.
 
-#### 4. Prepare the Job Submission Script
+### 4. Prepare the Job Submission Script
 Now, create a shell script to run the pipeline. Create a file called run_atacseq.sh:
 ```bash
 nano run_atacseq.sh
@@ -115,7 +115,7 @@ nextflow run nf-core/atacseq -r 2.1.2 -profile singularity -work-dir $WORKDIR -r
 Make edits as needed. Modify `--read_length` to match the number of base pairs per read in your fastq files (commonly = 100 or 150).
 Save and close the file.
 
-#### 5. Submit Your Job
+### 5. Submit Your Job
 Submit your job to SLURM by typing:
 ```bash
 sbatch run_atacseq.sh
@@ -140,7 +140,7 @@ Create a separate folder for the differential accessibility analysis:
 mkdir $HOME/differential
 ```
 
-#### 2. Tidy the features file
+### 2. Tidy the features file
 The nf-core/atacseq pipeline produced the following output: `$HOME/atacseq/results/bwa/merged_replicate/macs2/narrow_peak/consensus/consensus_peaks.mRp.clN.annotatePeaks.txt`
 ```csv
 PeakID (cmd=annotatePeaks.pl consensus_peaks.mRp.clN.bed genome.fa -gid -gtf genes.gtf -cpu 6)	Chr	Start	End	Strand	Peak Score	Focus Ratio/Region Size	Annotation (...)
@@ -175,7 +175,7 @@ Interval_219482	chr3	108008329	108008684	+	0	NA	Intergenic (...)
 Interval_113578	chr16	1025293	1025709	+	0	NA	Intergenic (...)
 ```
 
-#### 3. Tidy the matrix file
+### 3. Tidy the matrix file
 The atacseq pipeline produced the following output: `$HOME/atacseq/results/bwa/merged_replicate/macs2/narrow_peak/consensus/consensus_peaks.mRp.clN.featureCounts.txt`
 ```csv
 # Program:featureCounts v2.0.1; Command:"featureCounts" "-F" "SAF" "-O" "--fracOverlap" "0.2" "-p" "-T" "6" "-a" "consensus_peaks.mRp.clN.saf" "-s" "0" "-o" "consensus_peaks.mRp.clN.featureCounts.txt" "QX_F_SRS7605858_REP2.mLb.clN.sorted.bam" "QX_F_SRS7605858_REP1.mLb.clN.sorted.bam" "YR_F_SRS7606898_REP1.mLb.clN.sorted.bam" "YR_F_SRS7606898_REP2.mLb.clN.sorted.bam" "QX_M_SRS7604988_REP1.mLb.clN.sorted.bam" "QX_M_SRS7604988_REP2.mLb.clN.sorted.bam" "QX_M_SRS7755799_REP1.mLb.clN.sorted.bam" "QX_M_SRS7755799_REP2.mLb.clN.sorted.bam" "QX_F_SRS7604526_REP1.mLb.clN.sorted.bam" "QX_F_SRS7604526_REP2.mLb.clN.sorted.bam" "ZP_M_SRS7604190_REP2.mLb.clN.sorted.bam" "ZP_M_SRS7604190_REP1.mLb.clN.sorted.bam" "QX_F_SRS7756262_REP1.mLb.clN.sorted.bam" "QX_F_SRS7756262_REP2.mLb.clN.sorted.bam" "YR_F_SRS7606597_REP1.mLb.clN.sorted.bam" "YR_F_SRS7606597_REP2.mLb.clN.sorted.bam" "ZP_F_SRS7606383_REP1.mLb.clN.sorted.bam" "ZP_F_SRS7606383_REP2.mLb.clN.sorted.bam" "YR_M_SRS7605759_REP2.mLb.clN.sorted.bam" "YR_M_SRS7605759_REP1.mLb.clN.sorted.bam" "LA_M_SRS7604996_REP2.mLb.clN.sorted.bam" "LA_M_SRS7604996_REP1.mLb.clN.sorted.bam"  (...)
@@ -210,7 +210,7 @@ Interval_8	886	760	1106	409	183	118	368
 Interval_9	108	85	142	68	25	28	57
 ```
 
-#### 4. Build a samplesheet
+### 4. Build a samplesheet
 Build a samplesheet manually (see [here](https://nf-co.re/differentialabundance/1.5.0/docs/usage/#observations-samplesheet-input) for an example) or generate one using the header of differentialabundance.atacseq.GRCh38.featureCount.tsv if the phenotype is in the sample names, for example:
 ```bash
 cd $HOME/atacseq/results/bwa/merged_replicate/macs2/narrow_peak/consensus/
@@ -227,7 +227,7 @@ YR_F_SRS7606898_REP1,YR,F,YR_F
 (...)
 ```
 
-#### 5. Build a contrasts file
+### 5. Build a contrasts file
 The contrasts file is build manually (see [here](https://nf-co.re/differentialabundance/1.5.0/docs/usage/#contrasts-file) for more info), for example:
 ```csv
 id,variable,reference,target
@@ -236,7 +236,7 @@ ZP_F_vs_M,tissue_sex,ZP_F,ZP_M
 QX_F_vs_M,tissue_sex,QX_F,QX_M
 ```
 
-#### 6. Create the Job Submission Script
+### 6. Create the Job Submission Script
 Create a file called ```run_differential.sh```:
 ```bash
 cd $HOME/differential/
@@ -287,13 +287,13 @@ nextflow run nf-core/differentialabundance -r 1.5.0 -profile singularity -work-d
 ```
 Save and close the file.
 
-#### 7. Submit the Differential Expression Job
+### 7. Submit the Differential Expression Job
 Submit the job with:
 ```bash
 sbatch run_differential_atac.sh
 ```
 
-#### 8. Monitor Your Job
+### 8. Monitor Your Job
 Check job status with:
 ```bash
 squeue -u $USER
