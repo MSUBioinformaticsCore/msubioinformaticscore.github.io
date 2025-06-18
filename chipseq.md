@@ -33,9 +33,7 @@ The working directory, where intermediate and temporary files are stored, can be
 
 ## Step-by-Step Tutorial
 
-## Part 1: Pre-processing with nf-core/chipseq
-
-#### 1. Create a Project Directory
+### 1. Create a Project Directory
 Make a new folder for your ChIP-seq analysis:
 ```bash
 mkdir $HOME/chipseq
@@ -56,7 +54,7 @@ sample2,/path/to/sample2_R1.fastq.gz,/path/to/sample2_R2.fastq.gz,1,H3K27me3
 ```
 Save the file (in nano, press Ctrl+O then Ctrl+X to exit).
 
-#### 3. Create a Configuration File
+### 3. Create a Configuration File
 Do not type file content directly into the terminal. Use a text editor instead. Create a file named icer.config:
 ```bash
 nano icer.config
@@ -69,7 +67,7 @@ process {
 ```
 Save and exit the editor.
 
-#### 4. Prepare the Job Submission Script
+### 4. Prepare the Job Submission Script
 Now, create a shell script to run the pipeline. Create a file called run_chipseq.sh:
 ```bash
 nano run_chipseq.sh
@@ -109,7 +107,7 @@ nextflow run nf-core/chipseq -r 2.1.0 -profile singularity -work-dir $WORKDIR -r
 ```
 Make edits as needed. Save and close the file.
 
-#### 5. Submit Your Job
+### 5. Submit Your Job
 Submit your job to SLURM by typing:
 ```bash
 sbatch run_chipseq.sh
