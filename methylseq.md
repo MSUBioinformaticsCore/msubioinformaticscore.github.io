@@ -29,7 +29,7 @@ The working directory, which stores intermediate and temporary files, can be spe
 
 ## Step-by-Step Tutorial
 
-#### 1. Create a Project Directory
+### 1. Create a Project Directory
 Make a new folder for your RNA-seq analysis:
 ```bash
 mkdir $HOME/methylseq
@@ -37,7 +37,7 @@ cd $HOME/methylseq
 ```
 This command creates the directory and moves you into it.
 
-#### 2. Prepare a Sample Sheet
+### 2. Prepare a Sample Sheet
 You need to create a file called ```samplesheet.csv``` that lists your samples and their FASTQ file paths. Use a text editor (like nano) to create this file:
 ```bash
 nano samplesheet.csv
@@ -50,7 +50,7 @@ sample2,/path/to/sample2_R1.fastq.gz,/path/to/sample2_R2.fastq.gz,1
 ```
 Save the file (in nano, press Ctrl+O then Ctrl+X to exit).
 
-#### 3. Create a Configuration File
+### 3. Create a Configuration File
 Do not type file content directly into the terminal. Use a text editor instead. Create a file named icer.config:
 ```bash
 nano icer.config
@@ -63,7 +63,7 @@ process {
 ```
 Save and exit the editor.
 
-#### 4. Prepare the Job Submission Script
+### 4. Prepare the Job Submission Script
 Now, create a shell script to run the pipeline. Create a file called run_methylseq.sh:
 ```bash
 nano run_methylseq.sh
@@ -104,7 +104,7 @@ nextflow run nf-core/methylseq -r 3.0.0 -profile singularity -work-dir $WORKDIR 
 ```
 Make edits as needed. Save and close the file.
 
-#### 5. Submit Your Job
+### 5. Submit Your Job
 Submit your job to SLURM by typing:
 ```bash
 sbatch run_methylseq.sh
