@@ -27,7 +27,7 @@ GTF: /mnt/research/common-data/Bio/genomes/Emsembl_GRCm38_mm10/Mus_musculus.GRCm
 
 FASTA: /mnt/research/common-data/Bio/genomes/Ensembl_GRCm39_mm39/Mus_musculus.GRCm39.dna.primary_assembly.fa.gz
 
-GTF: /mnt/research/common-data/Bio/genomes/Ensembl_GRCm39_mm39/Mus_musculus.GRCm39.112.gtf.gz
+GTF: /mnt/research/common-data/Bio/genomes/Ensembl_GRCm39_mm39/Mus_musculus.GRCm39.114.gtf.gz
 
 4. Zebrafish **GRCz11**
 
