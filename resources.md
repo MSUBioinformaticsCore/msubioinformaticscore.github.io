@@ -98,6 +98,28 @@ title: Resources
   </div>
 </div>
 
+	<!-- PPMS Section -->
+## <i class="fa fa-file-invoice-dollar"></i> PPMS instructions
+<div class="resource-grid">
+  <div class="resource-item pine-green">
+    <a href="./ppms_assign_account_number">
+      <p>Assigning a Financial Account to a Project</p>
+    </a>
+  </div>
+
+  <div class="resource-item secondary-green">
+    <a href="./ppms_ordering_human_data_disclosure">
+      <p>Ordering a Human Data Disclosure Form</p>
+    </a>
+  </div>
+
+  <div class="resource-item forest-green">
+    <a href="./ppms_signing_cost_estimate_or_service_agreement">
+      <p>Signing a Cost Estimate or Service Agreement</p>
+    </a>
+  </div>
+</div>
+
 <div style="margin-top: 30px;">
 <b>More resources coming soon...</b>
 </div>
