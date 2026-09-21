@@ -58,3 +58,7 @@ These step-by-step instructions show how to assign a financial account to a proj
 8. **Assign the account to your project**
    - Once your request is approved, the account still needs to be linked to a project. If you entered a project reference when you submitted the request, PPMS will link it automatically. If not, return to Step 2 and enter the account number in the "Financial Account number" box to assign it directly.
 
+
+<div style="background:#EAF4EE; border-left:4px solid #18453B; padding:12px 18px; margin:24px 0;">
+<strong>Need help?</strong> Message our <a href="https://tinyurl.com/54dezh59">virtual help desk</a> or email <a href="mailto:bioinformatics@msu.edu">bioinformatics@msu.edu</a>.
+</div>

@@ -13,7 +13,7 @@ These step-by-step instructions show how to order and fill out a Human Data Disc
 ## Step-by-Step Guide
 
 1. **Start an order**
-   - At the top of the screen, select "Order."
+   - At the top of the screen, select the "Order" tab.
 
    <img src="images/ppms-hdd-step1.png" alt="Order tab at the top of PPMS" style="max-width: 800px; width: 100%; height: auto;">
 
@@ -28,10 +28,14 @@ These step-by-step instructions show how to order and fill out a Human Data Disc
    <img src="images/ppms-hdd-step3.png" alt="Quantity field for Human Data Disclosure" style="max-width: 800px; width: 100%; height: auto;">
 
 4. **Fill out the form**
-   - This pops up the Human Data Disclosure form for you to fill out.
+   - This pops up the Human Data Disclosure form for you to fill out. Once you are finished, click the  “Place Order” button. 
 
    <img src="images/ppms-hdd-step4.png" alt="Human Data Disclosure form" style="max-width: 800px; width: 100%; height: auto;">
 
 <div style="background:#EAF4EE; border-left:4px solid #18453B; padding:12px 18px; margin:24px 0;">
 <strong>Note:</strong> If you're unsure how your data should be classified, use the Human Research Protection Program, IRB Office, or Compliance Office links inside the form before you submit.
+</div>
+
+<div style="background:#EAF4EE; border-left:4px solid #18453B; padding:12px 18px; margin:24px 0;">
+<strong>Need help?</strong> Message our <a href="https://tinyurl.com/54dezh59">virtual help desk</a> or email <a href="mailto:bioinformatics@msu.edu">bioinformatics@msu.edu</a>.
 </div>

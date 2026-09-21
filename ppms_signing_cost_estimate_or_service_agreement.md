@@ -18,7 +18,7 @@ These step-by-step instructions show how to review, sign, and return a cost esti
    <img src="images/ppms-signing-step1.png" alt="PPMS login screen" style="max-width: 800px; width: 100%; height: auto;">
 
 2. **Open your document**
-   - Once you're logged in, you'll see your cost estimate (MSU researchers) or service agreement (non-MSU researchers). A green box at the top of the document explains how to sign and return it.
+   - Once you're logged in, you'll automatically be presented with your cost estimate (MSU researchers) or service agreement (non-MSU researchers). If it is not automatically presented, it will also be available in the Documents tab. A green box at the top of the document explains how to sign and return it.
 
    <img src="images/ppms-signing-step2.png" alt="Cost estimate document with instructions highlighted" style="max-width: 800px; width: 100%; height: auto;">
 
@@ -55,3 +55,7 @@ These step-by-step instructions show how to review, sign, and return a cost esti
 
 6. **Assign a financial account**
    - Once the estimate or service agreement is signed, you'll need to assign a financial account to the associated project, if you haven't already. See [Assigning a Financial Account to a Project](./ppms_assign_account_number) for instructions.
+
+<div style="background:#EAF4EE; border-left:4px solid #18453B; padding:12px 18px; margin:24px 0;">
+<strong>Need help?</strong> Message our <a href="https://tinyurl.com/54dezh59">virtual help desk</a> or email <a href="mailto:bioinformatics@msu.edu">bioinformatics@msu.edu</a>.
+</div>
