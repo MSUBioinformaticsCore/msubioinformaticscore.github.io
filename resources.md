@@ -98,7 +98,7 @@ title: Resources
   </div>
 </div>
 
-	<!-- PPMS Section -->
+<!-- PPMS Section -->
 ## <i class="fa fa-file-invoice-dollar"></i> PPMS instructions
 <div class="resource-grid">
   <div class="resource-item pine-green">
