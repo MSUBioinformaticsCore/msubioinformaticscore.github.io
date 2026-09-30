@@ -37,5 +37,5 @@ These step-by-step instructions show how to order and fill out a Human Data Disc
 </div>
 
 <div style="background:#EAF4EE; border-left:4px solid #18453B; padding:12px 18px; margin:24px 0;">
-<strong>Need help?</strong> Message our <a href="https://tinyurl.com/54dezh59">virtual help desk</a> or email <a href="mailto:bioinformatics@msu.edu">bioinformatics@msu.edu</a>.
+<strong>Need help?</strong> Message our <a href="https://teams.microsoft.com/l/channel/19%3APZpl9DmYU_Z_2E4NH8PoHD3v2UXJF4U9keGxpBqVp-U1%40thread.tacv2/PPMS%20help?groupId=80c35f6e-1356-42a9-a8da-296129a27ff7&tenantId=22177130-642f-41d9-9211-74237ad5687d&ngc=true&allowXTenantAccess=true">PPMS help Teams channel</a> or email <a href="mailto:bioinformatics@msu.edu">bioinformatics@msu.edu</a>.
 </div>
