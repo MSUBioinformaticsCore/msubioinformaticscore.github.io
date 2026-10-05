@@ -108,6 +108,7 @@ nextflow run nf-core/rnaseq -r 3.19.0 -profile singularity -work-dir $WORKDIR -r
 --outdir $OUTDIR \
 --fasta $FASTA \
 --gtf $GTF \
+--extra_salmon_quant_args '--seqBias --gcBias' \
 -c $CONFIG
 ```
 Make edits as needed. Save and close the file.
