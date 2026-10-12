@@ -93,6 +93,8 @@ Make sure sample names and identifiers are consistent between your sequencing fi
 - Depending on the study, raw sequencing data may also need to be deposited in SRA or another appropriate NCBI repository.
 - Include sufficient metadata and a description of the study so that other researchers can understand and reuse the data.
 
+#### GenBank Submission
+- Please reach out to BioinformaticsCore for a consultation on GenBank submissions
 ---
 
 ## Additional Notes
