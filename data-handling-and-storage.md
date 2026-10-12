@@ -63,7 +63,7 @@ The [**SRA Toolkit**](https://hpc.nih.gov/apps/sratoolkit.html) is a collection 
 
         prefetch SRR1234567
 
-- **Convert to FASTQ:** Use `fasterq-dump` to convert the downloaded file into FASTQ files. For paired-end data, `--split-files` writes the forward and reverse reads to separate files:
+- **Convert to FASTQ:** Use `fasterq-dump` to convert the downloaded file into FASTQ files. For paired-end data, `--split-files` writes the forward and reverse reads to separate files (`SRR1234567_1.fastq` and `SRR1234567_2.fastq`). The `-O` argument sets the output directory, so in the example below the split files will be written to the `fastq/` directory:
 
         fasterq-dump SRR1234567 --split-files --threads 4 -O fastq/
 
