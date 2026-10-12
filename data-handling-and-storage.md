@@ -54,12 +54,31 @@ If the data you need is already publicly available, it is generally more efficie
 - The **nf-core/fetchngs** workflow can be used to retrieve sequencing data from public repositories directly to the HPCC.
 - You provide the relevant **accession numbers**, which are unique identifiers assigned to datasets in repositories such as SRA, and `fetchngs` retrieves the associated sequencing data.
 
-#### NCBI, GEO, and SRA
-- **NCBI (National Center for Biotechnology Information)** hosts several biological databases, including:
-- **SRA (Sequence Read Archive)** — stores raw sequencing data.
-- **GEO (Gene Expression Omnibus)** — stores functional genomics data, such as gene expression datasets.
+#### SRA Toolkit
+The [**SRA Toolkit**](https://hpc.nih.gov/apps/sratoolkit.html) is a collection of command-line tools from NCBI for downloading data from the Sequence Read Archive (SRA) and converting it into **FASTQ** files, a common format for storing sequencing reads.
 
-The **SRA Toolkit** can be used to download sequencing data from SRA. Tools such as `fastq-dump` can convert SRA data into **FASTQ** files, a common format for storing sequencing reads.
+- **Load the toolkit:** The SRA Toolkit is available as a module on the HPCC. Use `module spider sra` to find the available versions, then load one with `module load`.
+- **Set the download location:** By default, downloaded files are stored in `~/ncbi` in your home directory, which can quickly fill your home space. Run `vdb-config --interactive` and, in the **Cache** tab, set the download location to a directory in your scratch or research space.
+- **Download a run:** Use `prefetch` with a run accession number to download the SRA file:
+
+        prefetch SRR1234567
+
+- **Convert to FASTQ:** Use `fasterq-dump` to convert the downloaded file into FASTQ files. For paired-end data, `--split-files` writes the forward and reverse reads to separate files:
+
+        fasterq-dump SRR1234567 --split-files --threads 4 -O fastq/
+
+- `fasterq-dump` is a faster replacement for the older `fastq-dump`. The FASTQ files it creates are uncompressed and can be very large, so compress them afterward with `gzip`.
+- For large downloads, run these commands in a SLURM job rather than on a development node.
+
+---
+
+> #### NCBI, SRA, GEO, and GenBank
+>
+> The [**National Center for Biotechnology Information (NCBI)**](https://www.ncbi.nlm.nih.gov/) is part of the U.S. National Library of Medicine at the National Institutes of Health. It hosts many public biological databases and is one of the most common sources of published sequencing data. Databases include:
+>
+> - [**SRA (Sequence Read Archive)**](https://www.ncbi.nlm.nih.gov/sra) — stores raw sequencing data.
+> - [**GEO (Gene Expression Omnibus)**](https://www.ncbi.nlm.nih.gov/geo/) — stores functional genomics data, such as gene expression datasets.
+> - [**GenBank**](https://www.ncbi.nlm.nih.gov/genbank/) — stores annotated nucleotide sequences, such as assembled genes and genomes.
 
 ---
 
