@@ -102,7 +102,7 @@ Make sure sample names and identifiers are consistent between your sequencing fi
 - Keep track of where your data is stored and which datasets have been processed or shared.
 - Use Globus or another appropriate transfer method for large datasets.
 - Check data-use agreements and institutional policies before sharing research data.
-- See the [MSU HPCC File Transfer documentation](https://docs.icer.msu.edu/File_transfer/) for detailed instructions on transferring files to and from the HPCC.
+- See the full [MSU HPCC File Transfer documentation](https://docs.icer.msu.edu/File_transfer/) for detailed instructions on transferring files to and from the HPCC.
 - Submit a ticket to ICER for questions related to data handling, storage, or security.
 
 By following these guidelines, you can efficiently manage sequencing data within the HPCC and share it appropriately with collaborators or the research community.
