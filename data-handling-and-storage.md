@@ -114,6 +114,7 @@ Make sure sample names and identifiers are consistent between your sequencing fi
 
 #### GenBank Submission
 - Please reach out to BioinformaticsCore for a consultation on GenBank submissions
+
 ---
 
 ## Additional Notes
