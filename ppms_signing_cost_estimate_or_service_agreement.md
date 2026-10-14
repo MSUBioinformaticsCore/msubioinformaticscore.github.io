@@ -31,7 +31,7 @@ These step-by-step instructions show how to review, sign, and return a cost esti
    - How you return the signed document depends on whether you're an MSU or non-MSU researcher.
 
    **MSU researchers:**
-   - Download the estimate and have it signed by your group leader (PI). Upload the signed copy to your project page, or email it to **bioinformatics@msu.edu** with your project reference number in the subject line. You can find a link to your project page in the "My Projects" section of the home page.
+   - Download the estimate and have it signed by your group leader (PI). Upload the signed copy to your project page and select "Send a notification by email", or email it to **bioinformatics@msu.edu** with your project reference number in the subject line. You can find a link to your project page in the "My Projects" section of the home page.
 
    <img src="images/ppms-signing-step4-optionA.png" alt="Users members of the project section" style="max-width: 800px; width: 100%; height: auto;">
 
