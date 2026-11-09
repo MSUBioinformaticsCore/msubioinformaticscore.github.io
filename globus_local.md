@@ -2,7 +2,7 @@
 layout: post
 title: "Transferring Local Files to the MSU HPCC via Globus Connect Personal"
 date: 2024-11-13
-author: John Vusich, Leah Terrian
+author: John Vusich, Leah Terrian, Dev Arnab
 categories: jekyll update
 ---
 
@@ -57,14 +57,20 @@ This guide provides step-by-step instructions for transferring files from your l
 
   <img src="images/step-4-file-manager.png" alt="Globus File Manager" style="max-width: 800px; width: 100%; height: auto;">
 
-### 7. Select the Source Collection (Local Files)
+### 7. Download and Install Globus Connect Personal
+
+- Before you can transfer files from your local machine, you need to download and install **Globus Connect Personal**.
+- Follow the installation instructions for your operating system (macOS, Windows, or Linux) on the [Globus Connect Personal install page](https://docs.globus.org/globus-connect-personal/install/).
+- After installation, open Globus Connect Personal and complete any setup prompts so it is running on your computer.
+
+### 8. Select the Source Collection (Local Files)
 
 - From your computer, click on the **Globus Connect Personal** icon.
 - Select **"Web: Transfer Files"** from the dropdown.
 
   <img src="images/globus-connect.png" alt="Select MSU OneDrive Collection" style="max-width: 800px; width: 100%; height: auto;">
 
-### 8. Select the Files to Transfer
+### 9. Select the Files to Transfer
 
 - Once authenticated, your OneDrive files and folders will appear in the source panel.
 - Navigate through the folders to locate the files you wish to transfer.
@@ -73,7 +79,7 @@ This guide provides step-by-step instructions for transferring files from your l
 
   <img src="images/local-select-files.png" alt="Select Files from OneDrive" style="max-width: 800px; width: 100%; height: auto;">
 
-### 9. Set Up the Destination Endpoint (msu#hpcc)
+### 10. Set Up the Destination Endpoint (msu#hpcc)
 
 - Above the source panel, click on **"Transfer or Sync to..."** to open the destination panel on the right.
 - In the destination panel, click on the empty search bar next to **"Collection"**.
@@ -82,7 +88,7 @@ This guide provides step-by-step instructions for transferring files from your l
 
   <img src="images/onedrive-step-8-select-hpcc-endpoint.png" alt="Select MSU HPCC Endpoint" style="max-width: 800px; width: 100%; height: auto;">
 
-### 10. Authenticate the MSU HPCC Endpoint (If Prompted)
+### 11. Authenticate the MSU HPCC Endpoint (If Prompted)
 
 - You may be prompted to authenticate the MSU HPCC endpoint.
 - Click **"Continue"** or **"Authenticate"** as prompted.
@@ -90,7 +96,7 @@ This guide provides step-by-step instructions for transferring files from your l
 
   <img src="images/onedrive-step-9-authenticate-hpcc.png" alt="Authenticate MSU HPCC Endpoint" style="max-width: 800px; width: 100%; height: auto;">
 
-### 11. Specify the Destination Path on the HPCC
+### 12. Specify the Destination Path on the HPCC
 
 - In the destination panel, locate the **"Path"** field.
 - Enter the path where you want to store your data on the HPCC.
@@ -101,7 +107,7 @@ This guide provides step-by-step instructions for transferring files from your l
 
   <img src="images/onedrive-step-10-specify-destination-path.png" alt="Specify Destination Path on HPCC" style="max-width: 800px; width: 100%; height: auto;">
 
-### 12. Start the Transfer
+### 13. Start the Transfer
 
 - Review your selections:
   - Ensure the correct files are selected in the source panel.
@@ -110,7 +116,7 @@ This guide provides step-by-step instructions for transferring files from your l
 
   <img src="images/onedrive-step-11-start-transfer.png" alt="Start Transfer from OneDrive to HPCC" style="max-width: 800px; width: 100%; height: auto;">
 
-### 13. Monitor the Transfer Progress
+### 14. Monitor the Transfer Progress
 
 - Click on **"Activity"** in the left-hand menu to view transfer progress.
 - You can see active, completed, and failed transfers.
